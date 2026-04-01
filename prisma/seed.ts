@@ -31,7 +31,7 @@ async function main() {
       email: "seller1@test.com",
       passwordHash: sellerHash,
       companyName: "대한물류",
-      role: UserRole.SELLER,
+      role: UserRole.USER,
     },
   });
 
@@ -43,7 +43,7 @@ async function main() {
       email: "seller2@test.com",
       passwordHash: sellerHash,
       companyName: "한국건설",
-      role: UserRole.SELLER,
+      role: UserRole.USER,
     },
   });
 
@@ -55,7 +55,7 @@ async function main() {
       email: "buyer1@test.com",
       passwordHash: buyerHash,
       companyName: "신흥산업",
-      role: UserRole.BUYER,
+      role: UserRole.USER,
     },
   });
 
@@ -67,7 +67,7 @@ async function main() {
       email: "buyer2@test.com",
       passwordHash: buyerHash,
       companyName: "미래물류",
-      role: UserRole.BUYER,
+      role: UserRole.USER,
     },
   });
 
