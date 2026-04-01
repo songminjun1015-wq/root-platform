@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx prisma:*)",
+      "Bash(npm install:*)",
+      "Bash(npm audit:*)",
+      "Bash(npx tsc:*)",
+      "Bash(curl -s http://localhost:3000/api/auth/me)",
+      "Bash(curl -s -X POST http://localhost:3000/api/auth/register -H \"Content-Type: application/json\" -d '{\"\"name\"\":\"\"송민준\"\",\"\"email\"\":\"\"admin@root.com\"\",\"\"password\"\":\"\"12345678\"\",\"\"companyName\"\":\"\"ROOT\"\",\"\"role\"\":\"\"SELLER\"\"}')",
+      "Bash(node -e \":*)",
+      "Bash(curl -s -X POST http://localhost:3000/api/auth/login -H \"Content-Type: application/json\" -d '{\"\"email\"\":\"\"admin@root.com\"\",\"\"password\"\":\"\"12345678\"\"}')",
+      "Bash(npm run:*)",
+      "Bash(taskkill /F /IM node.exe)",
+      "Bash(Get-Process node:*)",
+      "Bash(Stop-Process -Force)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(npx ts-node --project tsconfig.json -e \":*)",
+      "Bash(npx ts-node:*)",
+      "Bash(ls \"c:\\\\Users\\\\mjson\\\\OneDrive\\\\바탕 화면\\\\송민준\\\\ROOT\\\\app\\\\requests\\\\[id]\"\" 2>/dev/null || echo \"dir not found \")",
+      "Bash(cmd /c \"echo y | npx prisma migrate dev --name unify-user-role\")"
+    ]
+  }
+}

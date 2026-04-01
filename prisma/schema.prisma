@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ────────────────────────────────────────────────
+// Enums
+// ────────────────────────────────────────────────
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum AssetStatus {
+  PENDING_REVIEW  // 관리자 검토 대기
+  ACTIVE          // 매칭 가능 상태
+  MATCHED         // 딜 연결됨
+  SOLD            // 거래 완료
+  WITHDRAWN       // 철회됨
+}
+
+enum RequestStatus {
+  PENDING_REVIEW  // 관리자 검토 대기
+  ACTIVE          // 매칭 가능 상태
+  MATCHED         // 딜 연결됨
+  CLOSED          // 처리 완료
+  WITHDRAWN       // 철회됨
+}
+
+enum DealStatus {
+  NEW             // 딜 생성됨
+  REVIEWING       // 검토 중
+  MATCHED         // 자산↔요청 매칭 확정
+  NEGOTIATING     // 협상 중
+  WON             // 거래 성사
+  LOST            // 거래 불성사
+}
+
+enum UrgencyLevel {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+// ────────────────────────────────────────────────
+// Models
+// ────────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  companyName  String
+  role         UserRole
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  assets         Asset[]
+  requests       Request[]
+  dealsCreated   Deal[]
+}
+
+model Asset {
+  id                  String      @id @default(cuid())
+  ownerUserId         String
+  assetTitle          String
+  category            String
+  subcategory         String?
+  manufacturer        String?
+  modelName           String?
+  quantity            Int
+  unit                String?
+  conditionGrade      String
+  locationRegion      String
+  locationDetail      String?
+  askingPrice         Decimal?    @db.Decimal(18, 2)
+  priceNegotiable     Boolean     @default(false)
+  description         String?
+  imageUrls           String[]
+  dismantlingRequired Boolean     @default(false)
+  transportRequired   Boolean     @default(false)
+  installationRequired Boolean    @default(false)
+  status              AssetStatus @default(PENDING_REVIEW)
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  owner  User   @relation(fields: [ownerUserId], references: [id])
+  deals  Deal[]
+
+  @@index([status])
+  @@index([ownerUserId])
+}
+
+model Request {
+  id               String        @id @default(cuid())
+  requesterUserId  String
+  requestTitle     String
+  category         String
+  subcategory      String?
+  desiredQuantity  Int
+  budgetMin        Decimal?      @db.Decimal(18, 2)
+  budgetMax        Decimal?      @db.Decimal(18, 2)
+  preferredRegion  String
+  neededByDate     DateTime?
+  urgencyLevel     UrgencyLevel  @default(MEDIUM)
+  transportRequired    Boolean   @default(false)
+  installationRequired Boolean   @default(false)
+  description      String?
+  status           RequestStatus @default(PENDING_REVIEW)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  requester  User   @relation(fields: [requesterUserId], references: [id])
+  deals      Deal[]
+
+  @@index([status])
+  @@index([requesterUserId])
+}
+
+model Deal {
+  id               String     @id @default(cuid())
+  assetId          String?
+  requestId        String?
+  createdByAdminId String
+  dealTitle        String
+  status           DealStatus @default(NEW)
+  expectedValue    Decimal?   @db.Decimal(18, 2)
+  finalValue       Decimal?   @db.Decimal(18, 2)
+  notes            String?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  asset        Asset?   @relation(fields: [assetId], references: [id])
+  request      Request? @relation(fields: [requestId], references: [id])
+  createdBy    User     @relation(fields: [createdByAdminId], references: [id])
+
+  @@index([status])
+  @@index([assetId])
+  @@index([requestId])
+}
