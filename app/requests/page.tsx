@@ -35,7 +35,7 @@ export default async function RequestsPage() {
               </svg>
             </div>
             <p className="text-slate-400 text-sm font-medium">등록된 요청이 없습니다.</p>
-            {(user.role === "ADMIN" || user.role === "BUYER") && (
+            {true && (
               <Link href="/requests/new" className="mt-3 inline-block text-indigo-600 text-sm font-semibold hover:underline">
                 첫 요청 등록하기 →
               </Link>

@@ -19,7 +19,7 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
   });
 
   if (!request) notFound();
-  if (user.role === "BUYER" && request.requesterUserId !== user.id) redirect("/requests");
+  if (user.role !== "ADMIN" && request.requesterUserId !== user.id) redirect("/requests");
 
   const canEdit = user.role === "ADMIN" || request.requesterUserId === user.id;
 

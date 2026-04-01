@@ -18,7 +18,7 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
   });
 
   if (!asset) notFound();
-  if (user.role === "SELLER" && asset.ownerUserId !== user.id) redirect("/assets");
+  if (user.role !== "ADMIN" && asset.ownerUserId !== user.id) redirect("/assets");
 
   const canEdit = user.role === "ADMIN" || asset.ownerUserId === user.id;
 

@@ -22,8 +22,11 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
   if (!deal) notFound();
 
   // 권한 체크
-  if (user.role === "SELLER" && (!deal.asset || deal.asset.ownerUserId !== user.id)) redirect("/deals");
-  if (user.role === "BUYER" && (!deal.request || deal.request.requesterUserId !== user.id)) redirect("/deals");
+  if (user.role !== "ADMIN") {
+    const isMyAsset = deal.asset?.ownerUserId === user.id;
+    const isMyRequest = deal.request?.requesterUserId === user.id;
+    if (!isMyAsset && !isMyRequest) redirect("/deals");
+  }
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
