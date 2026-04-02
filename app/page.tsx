@@ -227,7 +227,7 @@ export default function LandingPage() {
               <motion.div key={item.label} variants={fadeUp}
                 className="border border-gray-100 rounded-2xl p-5 sm:p-6 hover:border-orange-200 hover:shadow-lg hover:shadow-orange-50 transition-all duration-300">
                 <p className="text-2xl mb-1">{item.icon}</p>
-                <p className="text-2xl sm:text-3xl font-black text-[#0A1628] mb-1">{item.number}</p>
+                <p className="text-3xl sm:text-4xl font-black text-[#0A1628] mb-1">{item.number}</p>
                 <p className="text-xs text-gray-400 font-medium">{item.label}</p>
               </motion.div>
             ))}
@@ -248,7 +248,7 @@ export default function LandingPage() {
               {[
                 {
                   step: "01", title: "장비 등록",
-                  desc: "보유 중인 유휴 장비 정보를 등록해드립니다.",
+                  desc: "보유 중인 유휴 장비 정보를 직접 등록해주세요.",
                   icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>,
                 },
                 {
