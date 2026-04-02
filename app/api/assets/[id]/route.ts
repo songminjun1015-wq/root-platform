@@ -27,6 +27,12 @@ export async function GET(
       return NextResponse.json({ error: "접근 권한이 없습니다." }, { status: 403 });
     }
 
+    // 구매금액은 본인(소유자) + ADMIN만 노출
+    if (role !== "ADMIN" && asset.ownerUserId !== userId) {
+      const { purchasePrice: _, ...rest } = asset;
+      return NextResponse.json({ asset: rest });
+    }
+
     return NextResponse.json({ asset });
   } catch (error) {
     console.error("[API /api/assets/[id]]", error);
@@ -80,6 +86,12 @@ export async function PATCH(
       dismantlingRequired,
       transportRequired,
       installationRequired,
+      manufacturedYear,
+      manufacturedMonth,
+      purchasedAt,
+      purchasedFrom,
+      purchasePrice,
+      serviceOptions,
       status,
     } = body;
 
@@ -112,6 +124,12 @@ export async function PATCH(
         ...(dismantlingRequired !== undefined && { dismantlingRequired }),
         ...(transportRequired !== undefined && { transportRequired }),
         ...(installationRequired !== undefined && { installationRequired }),
+        ...(manufacturedYear !== undefined && { manufacturedYear: manufacturedYear ?? null }),
+        ...(manufacturedMonth !== undefined && { manufacturedMonth: manufacturedMonth ?? null }),
+        ...(purchasedAt !== undefined && { purchasedAt: purchasedAt ? new Date(purchasedAt) : null }),
+        ...(purchasedFrom !== undefined && { purchasedFrom: purchasedFrom?.trim() ?? null }),
+        ...(purchasePrice !== undefined && { purchasePrice: purchasePrice ?? null }),
+        ...(serviceOptions !== undefined && { serviceOptions: Array.isArray(serviceOptions) ? serviceOptions : [] }),
         ...(status !== undefined && role === "ADMIN" && { status }),
       },
     });

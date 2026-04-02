@@ -32,6 +32,14 @@ export async function POST(req: NextRequest) {
       dismantlingRequired,
       transportRequired,
       installationRequired,
+      // 장비 이력
+      manufacturedYear,
+      manufacturedMonth,
+      purchasedAt,
+      purchasedFrom,
+      purchasePrice,
+      // 서비스 옵션
+      serviceOptions,
     } = body;
 
     if (!assetTitle || !category || !quantity || !conditionGrade || !locationRegion) {
@@ -65,6 +73,12 @@ export async function POST(req: NextRequest) {
         dismantlingRequired: dismantlingRequired ?? false,
         transportRequired: transportRequired ?? false,
         installationRequired: installationRequired ?? false,
+        manufacturedYear: manufacturedYear ?? null,
+        manufacturedMonth: manufacturedMonth ?? null,
+        purchasedAt: purchasedAt ? new Date(purchasedAt) : null,
+        purchasedFrom: purchasedFrom?.trim() ?? null,
+        purchasePrice: purchasePrice ?? null,
+        serviceOptions: Array.isArray(serviceOptions) ? serviceOptions : [],
       },
     });
 
@@ -91,7 +105,14 @@ export async function GET(req: NextRequest) {
       orderBy: { createdAt: "desc" },
     });
 
-    return NextResponse.json({ assets });
+    // 구매금액은 본인(소유자) + ADMIN만 노출
+    const filtered = assets.map((a) => {
+      if (role === "ADMIN" || a.ownerUserId === userId) return a;
+      const { purchasePrice: _, ...rest } = a;
+      return rest;
+    });
+
+    return NextResponse.json({ assets: filtered });
   } catch (error) {
     console.error("[API /api/assets]", error);
     return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });

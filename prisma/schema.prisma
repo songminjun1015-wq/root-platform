@@ -85,9 +85,20 @@ model Asset {
   priceNegotiable     Boolean     @default(false)
   description         String?
   imageUrls           String[]
-  dismantlingRequired Boolean     @default(false)
-  transportRequired   Boolean     @default(false)
-  installationRequired Boolean    @default(false)
+  dismantlingRequired  Boolean     @default(false)
+  transportRequired    Boolean     @default(false)
+  installationRequired Boolean     @default(false)
+
+  // 장비 이력
+  manufacturedYear  Int?
+  manufacturedMonth Int?
+  purchasedAt       DateTime?
+  purchasedFrom     String?
+  purchasePrice     Decimal?    @db.Decimal(18, 2)
+
+  // 서비스 옵션 (다중 선택)
+  serviceOptions    String[]
+
   status              AssetStatus @default(PENDING_REVIEW)
   createdAt           DateTime    @default(now())
   updatedAt           DateTime    @updatedAt
