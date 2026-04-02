@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" fill="none">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- 흰 배경 -->
+  <rect width="320" height="100" rx="12" fill="white"/>
+
+  <!-- ROOT 텍스트 -->
+  <text
+    x="24"
+    y="68"
+    font-family="'Inter', 'Arial Black', sans-serif"
+    font-weight="900"
+    font-size="58"
+    letter-spacing="-3"
+    fill="#0A1628"
+  >ROOT</text>
+
+  <!-- 오렌지 닷 -->
+  <circle cx="291" cy="30" r="7" fill="#F97316"/>
+</svg>

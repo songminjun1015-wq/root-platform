@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" fill="none">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&amp;display=swap');
+    </style>
+  </defs>
+
+  <!-- 배경 없음 (투명) — 다크 배경에 올릴 때 사용 -->
+  <text
+    x="24"
+    y="68"
+    font-family="'Inter', 'Arial Black', sans-serif"
+    font-weight="900"
+    font-size="58"
+    letter-spacing="-3"
+    fill="white"
+  >ROOT</text>
+
+  <circle cx="291" cy="30" r="7" fill="#F97316"/>
+</svg>
