@@ -32,71 +32,115 @@ function Section({ children, className = "" }: { children: React.ReactNode; clas
 // 지게차 아이소메트릭 일러스트
 function ForkliftIllustration() {
   return (
-    <svg viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-md">
-      {/* 그림자 */}
-      <ellipse cx="210" cy="295" rx="160" ry="14" fill="#0A1628" opacity="0.15"/>
+    <svg viewBox="0 0 440 340" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-md">
 
-      {/* 선반 */}
-      <rect x="280" y="60" width="110" height="8" rx="2" fill="#F97316"/>
-      <rect x="280" y="110" width="110" height="8" rx="2" fill="#F97316"/>
-      <rect x="280" y="160" width="110" height="8" rx="2" fill="#F97316"/>
-      <rect x="278" y="60" width="7" height="160" rx="2" fill="#1e3a5f"/>
-      <rect x="383" y="60" width="7" height="160" rx="2" fill="#1e3a5f"/>
+      {/* ── 배경 선반 (우측) ── */}
+      {/* 선반 기둥 */}
+      <rect x="310" y="50" width="8" height="210" rx="2" fill="#1e3a5f"/>
+      <rect x="408" y="50" width="8" height="210" rx="2" fill="#1e3a5f"/>
+      {/* 선반 판 */}
+      <rect x="308" y="50"  width="110" height="10" rx="2" fill="#F97316"/>
+      <rect x="308" y="115" width="110" height="10" rx="2" fill="#F97316"/>
+      <rect x="308" y="180" width="110" height="10" rx="2" fill="#F97316"/>
+      {/* 선반 박스들 */}
+      {/* 1단 */}
+      <rect x="320" y="25" width="38" height="28" rx="3" fill="#2d5a8e"/>
+      <rect x="320" y="25" width="38" height="9" rx="3" fill="#1e3a5f"/>
+      <rect x="366" y="28" width="34" height="25" rx="3" fill="#1e3a5f"/>
+      <rect x="366" y="28" width="34" height="8" rx="3" fill="#0d2240"/>
+      {/* 2단 */}
+      <rect x="320" y="90" width="42" height="28" rx="3" fill="#F97316"/>
+      <rect x="320" y="90" width="42" height="9" rx="3" fill="#c2500a"/>
+      <line x1="341" y1="90" x2="341" y2="118" stroke="#c2500a" strokeWidth="1.5" opacity="0.5"/>
+      <rect x="370" y="93" width="32" height="25" rx="3" fill="#2d5a8e"/>
+      {/* 3단 */}
+      <rect x="320" y="155" width="35" height="28" rx="3" fill="#1e3a5f"/>
+      <rect x="362" y="158" width="38" height="25" rx="3" fill="#F97316" opacity="0.85"/>
+      <rect x="362" y="158" width="38" height="8" rx="3" fill="#c2500a" opacity="0.85"/>
 
-      {/* 선반 위 박스들 */}
-      <rect x="288" y="36" width="35" height="26" rx="3" fill="#1e3a5f"/>
-      <rect x="288" y="36" width="35" height="8" rx="3" fill="#0A1628"/>
-      <line x1="305" y1="36" x2="305" y2="62" stroke="#0A1628" strokeWidth="1.5" opacity="0.5"/>
-      <rect x="330" y="40" width="30" height="22" rx="3" fill="#2d5a8e"/>
-      <rect x="330" y="40" width="30" height="7" rx="3" fill="#1e3a5f"/>
+      {/* ── 지게차 사이드뷰 ── */}
 
-      <rect x="288" y="88" width="38" height="24" rx="3" fill="#F97316"/>
-      <rect x="288" y="88" width="38" height="7" rx="3" fill="#c2500a"/>
-      <line x1="307" y1="88" x2="307" y2="112" stroke="#c2500a" strokeWidth="1.5" opacity="0.5"/>
-      <rect x="332" y="91" width="32" height="21" rx="3" fill="#1e3a5f"/>
+      {/* 마스트 (포크 레일) — 차체 앞쪽 */}
+      <rect x="196" y="80"  width="11" height="178" rx="3" fill="#0d2240"/>
+      <rect x="215" y="80"  width="11" height="178" rx="3" fill="#0d2240"/>
+      {/* 마스트 보강재 */}
+      <rect x="196" y="105" width="30" height="6" rx="1" fill="#1e3a5f"/>
+      <rect x="196" y="140" width="30" height="6" rx="1" fill="#1e3a5f"/>
+      <rect x="196" y="175" width="30" height="6" rx="1" fill="#1e3a5f"/>
 
-      <rect x="288" y="138" width="33" height="24" rx="3" fill="#2d5a8e"/>
-      <rect x="330" y="141" width="28" height="21" rx="3" fill="#F97316" opacity="0.8"/>
+      {/* 포크 캐리지 */}
+      <rect x="194" y="148" width="35" height="8" rx="2" fill="#64748b"/>
 
-      {/* 지게차 본체 */}
-      <rect x="50" y="170" width="115" height="75" rx="8" fill="#1e3a5f"/>
-      <rect x="50" y="170" width="115" height="28" rx="8" fill="#2d5a8e"/>
-      {/* 캐빈 유리 */}
-      <rect x="65" y="178" width="42" height="18" rx="3" fill="#7dd3fc" opacity="0.6"/>
-      {/* 지붕 보호대 */}
-      <rect x="48" y="165" width="119" height="8" rx="3" fill="#0A1628"/>
-      <rect x="55" y="155" width="4" height="20" rx="2" fill="#0A1628"/>
-      <rect x="157" y="155" width="4" height="20" rx="2" fill="#0A1628"/>
-      <rect x="48" y="153" width="119" height="6" rx="3" fill="#1e3a5f"/>
+      {/* 포크 (두 갈래) */}
+      {/* 위 포크: 앞으로 뻗고 끝이 살짝 내려감 */}
+      <path d="M226 152 L298 152 L300 158 L228 158 Z" fill="#F97316"/>
+      {/* 아래 포크 */}
+      <path d="M226 164 L298 164 L300 170 L228 170 Z" fill="#F97316"/>
 
-      {/* 마스트 */}
-      <rect x="160" y="100" width="9" height="145" rx="3" fill="#0A1628"/>
-      <rect x="172" y="100" width="9" height="145" rx="3" fill="#0A1628"/>
-      {/* 포크 */}
-      <rect x="160" y="148" width="80" height="9" rx="2" fill="#F97316"/>
-      <rect x="160" y="162" width="80" height="9" rx="2" fill="#F97316"/>
+      {/* 포크 위 화물 박스 */}
+      <rect x="228" y="110" width="60" height="44" rx="4" fill="#F97316"/>
+      <rect x="228" y="110" width="60" height="13" rx="4" fill="#c2500a"/>
+      <line x1="258" y1="110" x2="258" y2="154" stroke="#c2500a" strokeWidth="2" opacity="0.5"/>
+      {/* 박스 테이프 */}
+      <rect x="228" y="129" width="60" height="4" fill="#c2500a" opacity="0.4"/>
 
-      {/* 포크 위 박스 */}
-      <rect x="175" y="112" width="55" height="42" rx="4" fill="#F97316"/>
-      <rect x="175" y="112" width="55" height="12" rx="4" fill="#c2500a"/>
-      <line x1="202" y1="112" x2="202" y2="154" stroke="#c2500a" strokeWidth="1.5" opacity="0.6"/>
+      {/* 차체 메인 바디 */}
+      <rect x="68" y="178" width="132" height="72" rx="8" fill="#1e3a5f"/>
 
-      {/* 바퀴 */}
-      <circle cx="85" cy="252" r="22" fill="#0A1628"/>
-      <circle cx="85" cy="252" r="13" fill="#1e3a5f"/>
-      <circle cx="85" cy="252" r="5" fill="#2d5a8e"/>
-      <circle cx="145" cy="252" r="22" fill="#0A1628"/>
-      <circle cx="145" cy="252" r="13" fill="#1e3a5f"/>
-      <circle cx="145" cy="252" r="5" fill="#2d5a8e"/>
+      {/* 운전석 캐빈 (상단 돌출) */}
+      <rect x="90" y="142" width="88" height="40" rx="6" fill="#2d5a8e"/>
+      {/* 앞유리 */}
+      <rect x="148" y="148" width="24" height="28" rx="3" fill="#7dd3fc" opacity="0.5"/>
+      {/* 옆유리 */}
+      <rect x="96"  y="148" width="46" height="28" rx="3" fill="#7dd3fc" opacity="0.35"/>
+      {/* 캐빈 기둥 */}
+      <rect x="144" y="142" width="7" height="40" rx="2" fill="#1e3a5f"/>
 
-      {/* 카운터웨이트 */}
-      <rect x="50" y="220" width="30" height="35" rx="4" fill="#0A1628"/>
+      {/* 머리보호대 (오버헤드 가드) */}
+      <rect x="82"  y="134" width="106" height="7" rx="3" fill="#0d2240"/>
+      <rect x="84"  y="134" width="6"   height="16" rx="2" fill="#0d2240"/>
+      <rect x="182" y="134" width="6"   height="16" rx="2" fill="#0d2240"/>
 
       {/* 배기통 */}
-      <rect x="148" y="160" width="8" height="20" rx="2" fill="#0A1628"/>
+      <rect x="100" y="118" width="10" height="22" rx="3" fill="#0d2240"/>
+      <ellipse cx="105" cy="117" rx="6" ry="3" fill="#1e3a5f"/>
+
+      {/* 카운터웨이트 (뒤쪽 무거운 블록) */}
+      <rect x="68" y="206" width="30" height="44" rx="5" fill="#0d2240"/>
+      <rect x="72" y="214" width="22" height="6"  rx="2" fill="#1e3a5f" opacity="0.5"/>
+      <rect x="72" y="226" width="22" height="6"  rx="2" fill="#1e3a5f" opacity="0.5"/>
+
+      {/* 차체 하단 프레임 */}
+      <rect x="75"  y="244" width="140" height="12" rx="4" fill="#0d2240"/>
+
+      {/* 앞바퀴 (구동륜, 크다) */}
+      <circle cx="178" cy="264" r="26" fill="#111827"/>
+      <circle cx="178" cy="264" r="18" fill="#1e3a5f"/>
+      <circle cx="178" cy="264" r="9"  fill="#2d5a8e"/>
+      <circle cx="178" cy="264" r="4"  fill="#0d2240"/>
+      {/* 바퀴살 */}
+      {[0,60,120,180,240,300].map((deg, i) => (
+        <line
+          key={i}
+          x1={178 + 9  * Math.cos(deg * Math.PI/180)}
+          y1={264 + 9  * Math.sin(deg * Math.PI/180)}
+          x2={178 + 17 * Math.cos(deg * Math.PI/180)}
+          y2={264 + 17 * Math.sin(deg * Math.PI/180)}
+          stroke="#0d2240" strokeWidth="2"
+        />
+      ))}
+
+      {/* 뒷바퀴 (조향륜, 작다) */}
+      <circle cx="96"  cy="267" r="20" fill="#111827"/>
+      <circle cx="96"  cy="267" r="13" fill="#1e3a5f"/>
+      <circle cx="96"  cy="267" r="6"  fill="#2d5a8e"/>
+      <circle cx="96"  cy="267" r="3"  fill="#0d2240"/>
+
+      {/* 바닥 그림자 */}
+      <ellipse cx="190" cy="296" rx="155" ry="10" fill="#0A1628" opacity="0.12"/>
 
       {/* 바닥선 */}
-      <line x1="30" y1="274" x2="390" y2="274" stroke="#1e3a5f" strokeWidth="2" opacity="0.3"/>
+      <line x1="30" y1="290" x2="420" y2="290" stroke="#1e3a5f" strokeWidth="2" opacity="0.25"/>
     </svg>
   );
 }
