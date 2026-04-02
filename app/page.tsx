@@ -30,16 +30,16 @@ export default function LandingPage() {
 
       {/* 헤더 */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl font-black text-indigo-700 tracking-tighter">ROOT</span>
-            <span className="text-sm text-gray-400 font-medium">물류 유휴자산 B2B 플랫폼</span>
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-xl sm:text-2xl font-black text-indigo-700 tracking-tighter">ROOT</span>
+            <span className="hidden sm:block text-sm text-gray-400 font-medium">물류 유휴자산 B2B 플랫폼</span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link href="/login" className="text-sm text-gray-500 hover:text-slate-900 font-medium transition-colors">
               로그인
             </Link>
-            <Link href="/register" className="text-sm bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-indigo-800 transition-colors">
+            <Link href="/register" className="text-sm bg-indigo-700 text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg font-semibold hover:bg-indigo-800 transition-colors whitespace-nowrap">
               무료 시작
             </Link>
           </div>
@@ -48,13 +48,13 @@ export default function LandingPage() {
 
       {/* 히어로 */}
       <section className="pt-20 bg-white">
-        <div className="max-w-6xl mx-auto px-8 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12 sm:py-20 grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           <motion.div variants={stagger} initial="hidden" animate="visible">
-            <motion.h1 variants={fadeUp} className="text-5xl font-black text-indigo-700 leading-tight mb-5 tracking-tight">
+            <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl font-black text-indigo-700 leading-tight mb-4 sm:mb-5 tracking-tight">
               쓰지 않는 장비를<br />수익으로.
             </motion.h1>
-            <motion.p variants={fadeUp} className="text-base text-gray-500 leading-relaxed mb-8 max-w-md">
-              지게차, 컨베이어, 제함기 등 창고에 방치된 물류 장비를 등록하면,<br />
+            <motion.p variants={fadeUp} className="text-sm sm:text-base text-gray-500 leading-relaxed mb-6 sm:mb-8 max-w-md">
+              지게차, 컨베이어, 제함기 등 창고에 방치된 물류 장비를 등록하면,
               ROOT가 필요한 기업과 직접 연결해드립니다.
             </motion.p>
             <motion.div variants={fadeUp} className="flex items-center gap-3">
@@ -120,8 +120,8 @@ export default function LandingPage() {
 
       {/* 통계 */}
       <section className="bg-gray-50 border-y border-gray-100">
-        <div className="max-w-6xl mx-auto px-8 py-10">
-          <Section className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-10">
+          <Section className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {[
               {
                 number: "100+", label: "거래 완료 장비",
@@ -155,9 +155,9 @@ export default function LandingPage() {
       </section>
 
       {/* How it works */}
-      <section className="max-w-6xl mx-auto px-8 py-24">
+      <section className="max-w-6xl mx-auto px-4 sm:px-8 py-14 sm:py-24">
         <Section>
-          <motion.h2 variants={fadeUp} className="text-4xl font-black text-slate-900 text-center mb-14 tracking-tight">
+          <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-black text-slate-900 text-center mb-10 sm:mb-14 tracking-tight">
             3단계로 거래가 완료됩니다.
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -199,10 +199,10 @@ export default function LandingPage() {
       </section>
 
       {/* 대상 */}
-      <section className="bg-gray-50 border-y border-gray-100 py-24">
-        <div className="max-w-6xl mx-auto px-8">
+      <section className="bg-gray-50 border-y border-gray-100 py-14 sm:py-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8">
           <Section>
-            <motion.h2 variants={fadeUp} className="text-4xl font-black text-slate-900 text-center mb-12 tracking-tight">
+            <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-black text-slate-900 text-center mb-8 sm:mb-12 tracking-tight">
               이런 분께 맞습니다.
             </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -246,8 +246,8 @@ export default function LandingPage() {
       </section>
 
       {/* 부가 서비스 */}
-      <section className="max-w-6xl mx-auto px-8 py-24">
-        <div className="flex flex-col md:flex-row gap-12 items-center">
+      <section className="max-w-6xl mx-auto px-4 sm:px-8 py-14 sm:py-24">
+        <div className="flex flex-col md:flex-row gap-8 sm:gap-12 items-center">
           <Section className="flex-1">
             <motion.p variants={fadeUp} className="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-3">Additional Service</motion.p>
             <motion.h2 variants={fadeUp} className="text-4xl font-black text-slate-900 tracking-tight leading-tight mb-4">
@@ -280,8 +280,8 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-indigo-700 py-24">
-        <Section className="max-w-3xl mx-auto px-8 text-center">
+      <section className="bg-indigo-700 py-14 sm:py-24">
+        <Section className="max-w-3xl mx-auto px-4 sm:px-8 text-center">
           <motion.h2 variants={fadeUp} className="text-4xl font-black text-white mb-4 tracking-tight leading-tight">
             장비 처분,<br />고민하지 마세요.
           </motion.h2>
@@ -299,7 +299,7 @@ export default function LandingPage() {
 
       {/* 푸터 */}
       <footer className="bg-slate-900 border-t border-slate-800 py-8">
-        <div className="max-w-6xl mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-xl font-black text-white tracking-tighter">ROOT</span>
           <p className="text-xs text-slate-600">Copyright © ROOT. All rights reserved.</p>
         </div>
