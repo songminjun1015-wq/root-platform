@@ -327,7 +327,7 @@ export default function LandingPage() {
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
         </div>
         <Section className="relative max-w-3xl mx-auto px-4 sm:px-8 text-center">
-          <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl font-black text-white mb-4 tracking-tight leading-tight">
+          <motion.h2 variants={fadeUp} className="text-3xl sm:text-5xl font-black text-orange-500 mb-4 tracking-tight leading-tight">
             장비 처분,<br />고민하지 마세요.
           </motion.h2>
           <motion.p variants={fadeUp} className="text-white/70 mb-8 text-base">등록은 무료입니다. 매칭은 ROOT가 합니다.</motion.p>
