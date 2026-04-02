@@ -16,6 +16,7 @@
     "@supabase/supabase-js": "^2.101.1",
     "autoprefixer": "^10.4.27",
     "bcryptjs": "^3.0.3",
+    "framer-motion": "^12.38.0",
     "jose": "^6.2.2",
     "jsonwebtoken": "^9.0.3",
     "next": "^15.5.14",

@@ -9,6 +9,9 @@ export async function middleware(req: NextRequest) {
   // API 라우트는 자체 인증 처리
   if (pathname.startsWith("/api/")) return NextResponse.next();
 
+  // 정적 파일 허용 (이미지 등)
+  if (/\.[a-zA-Z0-9]+$/.test(pathname)) return NextResponse.next();
+
   // 공개 페이지 허용
   if (PUBLIC_PAGES.includes(pathname)) return NextResponse.next();
 
@@ -28,5 +31,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.png|.*\\.jpg|.*\\.jpeg|.*\\.svg|.*\\.webp).*)"],
 };

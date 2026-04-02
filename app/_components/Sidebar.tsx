@@ -44,8 +44,10 @@ export default function Sidebar({ session }: { session: JwtPayload | null }) {
     <aside className="w-60 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col h-screen">
       {/* 로고 */}
       <div className="px-6 py-5 border-b border-slate-100">
-        <span className="text-slate-900 font-black text-xl tracking-tighter">ROOT</span>
-        <p className="text-slate-400 text-xs mt-0.5 font-medium">자산 운영 플랫폼</p>
+        <Link href="/" className="block">
+          <span className="text-slate-900 font-black text-xl tracking-tighter">ROOT</span>
+          <p className="text-slate-400 text-xs mt-0.5 font-medium">자산 운영 플랫폼</p>
+        </Link>
       </div>
 
       {/* 네비게이션 */}
