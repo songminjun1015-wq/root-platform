@@ -34,9 +34,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      return NextResponse.json({ error: "올바른 이메일 형식이 아닙니다." }, { status: 400 });
+    }
+
     if (password.length < MIN_PASSWORD_LENGTH) {
       return NextResponse.json(
         { error: `비밀번호는 최소 ${MIN_PASSWORD_LENGTH}자 이상이어야 합니다.` },
+        { status: 400 }
+      );
+    }
+
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      return NextResponse.json(
+        { error: "비밀번호는 영문과 숫자를 포함해야 합니다." },
         { status: 400 }
       );
     }
@@ -69,7 +82,8 @@ export async function POST(req: NextRequest) {
     const token = signToken({ userId: user.id, email: user.email, role: user.role });
 
     return NextResponse.json({ user, token }, { status: 201 });
-  } catch {
+  } catch (error) {
+    console.error("[POST /api/auth/register]", error);
     return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
   }
 }

@@ -29,7 +29,8 @@ export async function GET(
     }
 
     return NextResponse.json({ request });
-  } catch {
+  } catch (error) {
+    console.error("[API /api/requests/[id]]", error);
     return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
   }
 }
@@ -112,7 +113,8 @@ export async function PATCH(
     });
 
     return NextResponse.json({ request: updated });
-  } catch {
+  } catch (error) {
+    console.error("[API /api/requests/[id]]", error);
     return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
   }
 }

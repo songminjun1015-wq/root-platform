@@ -67,7 +67,8 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ request }, { status: 201 });
-  } catch {
+  } catch (error) {
+    console.error("[API /api/requests]", error);
     return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
   }
 }
@@ -89,7 +90,8 @@ export async function GET(req: NextRequest) {
     });
 
     return NextResponse.json({ requests });
-  } catch {
+  } catch (error) {
+    console.error("[API /api/requests]", error);
     return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
   }
 }

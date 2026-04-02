@@ -28,7 +28,8 @@ export async function GET(
     }
 
     return NextResponse.json({ asset });
-  } catch {
+  } catch (error) {
+    console.error("[API /api/assets/[id]]", error);
     return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
   }
 }
@@ -116,7 +117,8 @@ export async function PATCH(
     });
 
     return NextResponse.json({ asset: updated });
-  } catch {
+  } catch (error) {
+    console.error("[API /api/assets/[id]]", error);
     return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
   }
 }

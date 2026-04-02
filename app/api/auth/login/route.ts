@@ -44,7 +44,8 @@ export async function POST(req: NextRequest) {
 
     const { passwordHash: _, ...safeUser } = user;
     return NextResponse.json({ user: safeUser, token });
-  } catch {
+  } catch (error) {
+    console.error("[POST /api/auth/login]", error);
     return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
   }
 }
