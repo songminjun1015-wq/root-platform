@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuth } from "@/lib/auth";
+import { sendAssetApprovedEmail } from "@/lib/email";
 
 // ────────────────────────────────────────────────
 // GET /api/assets/[id] — 자산 상세 조회
@@ -133,6 +134,14 @@ export async function PATCH(
         ...(status !== undefined && role === "ADMIN" && { status }),
       },
     });
+
+    // 자산 상태가 ACTIVE로 승인되면 소유자에게 알림
+    if (status === "ACTIVE" && asset.status !== "ACTIVE") {
+      const owner = await prisma.user.findUnique({ where: { id: asset.ownerUserId }, select: { email: true } });
+      if (owner?.email) {
+        sendAssetApprovedEmail(owner.email, updated.assetTitle, updated.id).catch(console.error);
+      }
+    }
 
     return NextResponse.json({ asset: updated });
   } catch (error) {

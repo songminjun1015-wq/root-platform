@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" fill="none">
+  <!-- 다크 배경용 (흰색 로고) -->
+  <text
+    x="0"
+    y="48"
+    font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="900"
+    font-size="52"
+    letter-spacing="-3"
+    fill="white"
+  >ROOT</text>
+</svg>

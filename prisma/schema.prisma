@@ -63,9 +63,10 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  assets         Asset[]
-  requests       Request[]
-  dealsCreated   Deal[]
+  assets              Asset[]
+  requests            Request[]
+  dealsCreated        Deal[]
+  passwordResetTokens PasswordResetToken[]
 }
 
 model Asset {
@@ -134,6 +135,18 @@ model Request {
 
   @@index([status])
   @@index([requesterUserId])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Deal {

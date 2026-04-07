@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" fill="none">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&amp;display=swap');
+    </style>
+    <!-- 원형 클립 (인스타 미리보기용) -->
+    <clipPath id="circle">
+      <circle cx="540" cy="540" r="540"/>
+    </clipPath>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="1080" height="1080" fill="#0A1628"/>
+
+  <!-- 배경 장식 — 왼쪽 상단 글로우 -->
+  <circle cx="200" cy="200" r="320" fill="#F97316" opacity="0.06"/>
+  <!-- 오른쪽 하단 글로우 -->
+  <circle cx="900" cy="900" r="280" fill="#1e3a5f" opacity="0.5"/>
+
+  <!-- ROOT 텍스트 — 중앙 정렬 -->
+  <text
+    x="540"
+    y="600"
+    text-anchor="middle"
+    font-family="'Inter', 'Arial Black', Arial, sans-serif"
+    font-weight="900"
+    font-size="220"
+    letter-spacing="-12"
+    fill="white"
+  >ROOT</text>
+
+  <!-- 오렌지 언더라인 포인트 -->
+  <rect x="280" y="635" width="520" height="12" rx="6" fill="#F97316"/>
+
+  <!-- 서브텍스트 -->
+  <text
+    x="540"
+    y="730"
+    text-anchor="middle"
+    font-family="'Inter', Arial, sans-serif"
+    font-weight="500"
+    font-size="48"
+    letter-spacing="8"
+    fill="white"
+    opacity="0.35"
+  >유휴장비 거래 플랫폼</text>
+</svg>

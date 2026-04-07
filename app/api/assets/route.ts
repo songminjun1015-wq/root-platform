@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuth } from "@/lib/auth";
+import { sendNewAssetNotifyAdmin } from "@/lib/email";
 
 // ────────────────────────────────────────────────
 // POST /api/assets — 자산 등록
@@ -81,6 +82,13 @@ export async function POST(req: NextRequest) {
         serviceOptions: Array.isArray(serviceOptions) ? serviceOptions : [],
       },
     });
+
+    // 어드민에게 새 자산 등록 알림 이메일 (비동기, 실패해도 응답 영향 없음)
+    const owner = await prisma.user.findUnique({ where: { id: userId }, select: { name: true, companyName: true } });
+    const admins = await prisma.user.findMany({ where: { role: "ADMIN" }, select: { email: true } });
+    for (const admin of admins) {
+      sendNewAssetNotifyAdmin(admin.email, asset.assetTitle, asset.id, owner?.name ?? "", owner?.companyName ?? "").catch(console.error);
+    }
 
     return NextResponse.json({ asset }, { status: 201 });
   } catch (error) {

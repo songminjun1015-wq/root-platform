@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuth } from "@/lib/auth";
 import { DealStatus } from "@prisma/client";
+import { sendDealStatusEmail, sendAssetApprovedEmail } from "@/lib/email";
 
 // ────────────────────────────────────────────────
 // GET /api/deals/[id] — Deal 상세 조회
@@ -88,10 +89,29 @@ export async function PATCH(
         ...(notes !== undefined && { notes: notes?.trim() ?? null }),
       },
       include: {
-        asset: { select: { id: true, assetTitle: true } },
-        request: { select: { id: true, requestTitle: true } },
+        asset: { include: { owner: { select: { email: true, name: true } } } },
+        request: { include: { requester: { select: { email: true, name: true } } } },
       },
     });
+
+    // 딜 상태 변경 시 관련 유저에게 이메일 알림
+    if (status !== undefined && status !== deal.status) {
+      const emails = new Set<string>();
+      if (updated.asset?.owner?.email) emails.add(updated.asset.owner.email);
+      if (updated.request?.requester?.email) emails.add(updated.request.requester.email);
+
+      for (const email of emails) {
+        sendDealStatusEmail(email, updated.dealTitle, updated.id, status).catch(console.error);
+      }
+
+      // 자산 ACTIVE 승인 시 자산 소유자에게 별도 알림
+      if (status === "MATCHED" && updated.asset) {
+        const ownerEmail = updated.asset.owner?.email;
+        if (ownerEmail) {
+          sendAssetApprovedEmail(ownerEmail, updated.asset.assetTitle, updated.asset.id).catch(console.error);
+        }
+      }
+    }
 
     return NextResponse.json({ deal: updated });
   } catch (error) {

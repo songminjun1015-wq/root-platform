@@ -66,7 +66,9 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-white/70 mb-1.5">이메일</label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-sm font-semibold text-white/70">이메일</label>
+              </div>
               <input
                 name="email"
                 type="email"
@@ -78,7 +80,12 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-white/70 mb-1.5">비밀번호</label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-sm font-semibold text-white/70">비밀번호</label>
+                <Link href="/forgot-password" className="text-xs text-orange-400 hover:text-orange-300 transition-colors">
+                  비밀번호 찾기
+                </Link>
+              </div>
               <input
                 name="password"
                 type="password"

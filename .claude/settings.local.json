@@ -18,7 +18,11 @@
       "Bash(npx ts-node:*)",
       "Bash(ls \"c:\\\\Users\\\\mjson\\\\OneDrive\\\\바탕 화면\\\\송민준\\\\ROOT\\\\app\\\\requests\\\\[id]\"\" 2>/dev/null || echo \"dir not found \")",
       "Bash(cmd /c \"echo y | npx prisma migrate dev --name unify-user-role\")",
-      "Bash(ls /c/Users/mjson/.claude/projects/c--Users-mjson-OneDrive-----------ROOT/*.jsonl)"
+      "Bash(ls /c/Users/mjson/.claude/projects/c--Users-mjson-OneDrive-----------ROOT/*.jsonl)",
+      "Bash(node scripts/export-logo-png.mjs)",
+      "Bash(npm uninstall:*)",
+      "Bash(node scripts/export-instagram.mjs)",
+      "Bash(set PRISMA_MIGRATE_SKIP_INTERACTIVE=1)"
     ]
   }
 }
