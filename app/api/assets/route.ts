@@ -50,8 +50,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (typeof quantity !== "number" || quantity < 1) {
-      return NextResponse.json({ error: "quantity는 1 이상의 숫자여야 합니다." }, { status: 400 });
+    if (typeof quantity !== "number" || quantity < 1 || quantity > 9999) {
+      return NextResponse.json({ error: "수량은 1~9,999 사이여야 합니다." }, { status: 400 });
+    }
+
+    if (askingPrice !== undefined && askingPrice !== null && askingPrice > 99_900_000_000) {
+      return NextResponse.json({ error: "희망가는 999억 원 이하여야 합니다." }, { status: 400 });
     }
 
     const asset = await prisma.asset.create({

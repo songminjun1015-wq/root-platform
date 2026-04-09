@@ -90,8 +90,12 @@ export async function PATCH(
       status,
     } = body;
 
-    if (quantity !== undefined && (typeof quantity !== "number" || quantity < 1)) {
-      return NextResponse.json({ error: "quantity는 1 이상의 숫자여야 합니다." }, { status: 400 });
+    if (quantity !== undefined && (typeof quantity !== "number" || quantity < 1 || quantity > 9999)) {
+      return NextResponse.json({ error: "수량은 1~9,999 사이여야 합니다." }, { status: 400 });
+    }
+
+    if (askingPrice !== undefined && askingPrice !== null && askingPrice > 99_900_000_000) {
+      return NextResponse.json({ error: "희망가는 999억 원 이하여야 합니다." }, { status: 400 });
     }
 
     // USER는 status 직접 변경 불가 (운영자만 변경)

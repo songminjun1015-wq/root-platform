@@ -159,7 +159,7 @@ export default function AssetEditPage() {
           </Field>
           <div className="grid grid-cols-2 gap-4">
             <Field label="수량 *">
-              <input name="quantity" type="number" min="1" value={form.quantity} onChange={handleChange} required className={input} />
+              <input name="quantity" type="number" min="1" max="9999" value={form.quantity} onChange={handleChange} required className={input} />
             </Field>
             <Field label="상태등급 *">
               <select name="conditionGrade" value={form.conditionGrade} onChange={handleChange} required className={input}>
@@ -176,7 +176,7 @@ export default function AssetEditPage() {
           </Field>
           <div className="grid grid-cols-2 gap-4">
             <Field label="희망가 (원)">
-              <input name="askingPrice" type="number" min="0" value={form.askingPrice} onChange={handleChange} className={input} />
+              <input name="askingPrice" type="number" min="0" max="99900000000" value={form.askingPrice} onChange={handleChange} className={input} />
             </Field>
             <div className="flex items-end pb-1">
               <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">

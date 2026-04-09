@@ -93,7 +93,7 @@ export default function AssetNewPage() {
           </div>
           <FormField label="모델명" name="modelName" placeholder="예: 8FD25" />
           <div className="grid grid-cols-2 gap-4">
-            <FormField label="수량 *" name="quantity" type="number" min="1" required />
+            <FormField label="수량 *" name="quantity" type="number" min="1" max="9999" required />
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">상태등급 *</label>
               <select name="conditionGrade" required
@@ -108,7 +108,7 @@ export default function AssetNewPage() {
           </div>
           <FormField label="지역 *" name="locationRegion" required placeholder="예: 경기도 성남시" />
           <div className="grid grid-cols-2 gap-4">
-            <FormField label="희망가 (원)" name="askingPrice" type="number" min="0" placeholder="예: 8500000" />
+            <FormField label="희망가 (원)" name="askingPrice" type="number" min="0" max="99900000000" placeholder="예: 8500000" />
             <div className="flex items-end pb-1">
               <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
                 <input name="priceNegotiable" type="checkbox" className="rounded border-slate-300 text-orange-500" />
@@ -229,13 +229,13 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function FormField({ label, name, type = "text", required = false, placeholder, min }: {
-  label: string; name: string; type?: string; required?: boolean; placeholder?: string; min?: string;
+function FormField({ label, name, type = "text", required = false, placeholder, min, max }: {
+  label: string; name: string; type?: string; required?: boolean; placeholder?: string; min?: string; max?: string;
 }) {
   return (
     <div>
       <label className="block text-sm font-medium text-slate-700 mb-1.5">{label}</label>
-      <input name={name} type={type} required={required} placeholder={placeholder} min={min}
+      <input name={name} type={type} required={required} placeholder={placeholder} min={min} max={max}
         className="w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
     </div>
   );
