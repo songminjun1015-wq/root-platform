@@ -41,6 +41,9 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
           <div className="flex items-center gap-3 mb-1">
             <h1 className="text-2xl font-bold text-gray-900">{deal.dealTitle}</h1>
             <StatusBadge status={deal.status} />
+            {deal.isHistorical && (
+              <span className="text-xs font-bold bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full">수기 입력</span>
+            )}
           </div>
           <p className="text-gray-500 text-sm">
             생성: {deal.createdBy.name} ({deal.createdBy.companyName}) · {new Date(deal.createdAt).toLocaleDateString("ko-KR")}
@@ -62,6 +65,12 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
               <p className="text-xs text-gray-400 mb-0.5">상태</p>
               <StatusBadge status={deal.status} />
             </div>
+            {deal.closedAt && (
+              <div>
+                <p className="text-xs text-gray-400 mb-0.5">거래 완료일</p>
+                <p className="text-sm font-semibold text-gray-900">{new Date(deal.closedAt).toLocaleDateString("ko-KR")}</p>
+              </div>
+            )}
             <div>
               <p className="text-xs text-gray-400 mb-0.5">예상금액</p>
               <p className="text-sm font-semibold text-gray-900">
@@ -86,6 +95,33 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
             </div>
           )}
         </section>
+
+        {/* 과거 거래 당사자 */}
+        {deal.isHistorical && (deal.sellerName || deal.buyerName) && (
+          <section className="bg-white border border-gray-200 rounded-xl p-6">
+            <h2 className="text-sm font-semibold text-gray-700 mb-4">거래 당사자</h2>
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <p className="text-xs text-gray-400 mb-1.5">판매자</p>
+                {deal.sellerName ? (
+                  <>
+                    <p className="text-sm font-semibold text-gray-900">{deal.sellerName}</p>
+                    {deal.sellerCompany && <p className="text-xs text-gray-500 mt-0.5">{deal.sellerCompany}</p>}
+                  </>
+                ) : <p className="text-sm text-gray-400">-</p>}
+              </div>
+              <div>
+                <p className="text-xs text-gray-400 mb-1.5">구매자</p>
+                {deal.buyerName ? (
+                  <>
+                    <p className="text-sm font-semibold text-gray-900">{deal.buyerName}</p>
+                    {deal.buyerCompany && <p className="text-xs text-gray-500 mt-0.5">{deal.buyerCompany}</p>}
+                  </>
+                ) : <p className="text-sm text-gray-400">-</p>}
+              </div>
+            </div>
+          </section>
+        )}
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* 연결 자산 */}

@@ -27,9 +27,14 @@ export default async function DealsPage() {
           <p className="text-slate-400 text-sm mt-1 font-medium">{deals.length}개의 딜</p>
         </div>
         {user.role === "ADMIN" && (
-          <Link href="/deals/new" className="bg-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-indigo-800 transition-colors">
-            + 딜 생성
-          </Link>
+          <div className="flex gap-2">
+            <Link href="/deals/history/new" className="border border-slate-200 bg-white text-slate-700 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-50 transition-colors">
+              + 과거 거래 입력
+            </Link>
+            <Link href="/deals/new" className="bg-orange-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-400 transition-colors">
+              + 딜 생성
+            </Link>
+          </div>
         )}
       </div>
 

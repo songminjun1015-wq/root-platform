@@ -159,6 +159,13 @@ model Deal {
   expectedValue    Decimal?   @db.Decimal(18, 2)
   finalValue       Decimal?   @db.Decimal(18, 2)
   notes            String?
+  // 과거 거래 수기 입력
+  isHistorical     Boolean    @default(false)
+  closedAt         DateTime?
+  sellerName       String?
+  sellerCompany    String?
+  buyerName        String?
+  buyerCompany     String?
   createdAt        DateTime   @default(now())
   updatedAt        DateTime   @updatedAt
 
