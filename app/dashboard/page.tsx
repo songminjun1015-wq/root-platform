@@ -86,20 +86,22 @@ export default async function DashboardPage() {
               </span>
             )}
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {todoItems.map((item) => (
-              <Link key={item.label} href={item.href}
-                className={`relative border rounded-2xl p-4 transition-all hover:shadow-sm ${
-                  item.urgent ? item.color : "bg-white border-slate-200 text-slate-500"
-                }`}>
-                {item.urgent && (
+          {todoItems.filter((item) => item.count > 0).length === 0 ? (
+            <div className="bg-white border border-slate-200 rounded-2xl px-5 py-4">
+              <p className="text-sm text-slate-400 font-medium">처리할 항목이 없습니다 ✓</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {todoItems.filter((item) => item.count > 0).map((item) => (
+                <Link key={item.label} href={item.href}
+                  className={`relative border rounded-2xl p-4 transition-all hover:shadow-sm ${item.color}`}>
                   <span className={`absolute top-3 right-3 w-2 h-2 rounded-full ${item.dot}`} />
-                )}
-                <p className="text-2xl font-black mb-1">{item.count}</p>
-                <p className="text-xs font-semibold">{item.label}</p>
-              </Link>
-            ))}
-          </div>
+                  <p className="text-2xl font-black mb-1">{item.count}</p>
+                  <p className="text-xs font-semibold">{item.label}</p>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* 전체 현황 */}
