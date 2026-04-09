@@ -3,6 +3,7 @@ import { getSessionUser } from "@/lib/session";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import StatusBadge from "@/app/_components/StatusBadge";
+import DeleteAssetButton from "./DeleteAssetButton";
 
 const SERVICE_LABEL: Record<string, string> = {
   AS_AVAILABLE:           "A/S 가능",
@@ -81,10 +82,15 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
           <p className="text-slate-400 text-sm">{asset.category}{asset.subcategory ? ` · ${asset.subcategory}` : ""}</p>
         </div>
         {canEdit && (
-          <Link href={`/assets/${id}/edit`}
-            className="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
-            수정
-          </Link>
+          <div className="flex gap-2">
+            <Link href={`/assets/${id}/edit`}
+              className="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors">
+              수정
+            </Link>
+            {asset.status !== "WITHDRAWN" && (
+              <DeleteAssetButton assetId={id} status={asset.status} isAdmin={user.role === "ADMIN"} />
+            )}
+          </div>
         )}
       </div>
 

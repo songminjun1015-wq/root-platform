@@ -36,6 +36,50 @@ export async function GET(
 }
 
 // ────────────────────────────────────────────────
+// DELETE /api/assets/[id] — 자산 삭제 또는 삭제 요청
+// PENDING_REVIEW: 즉시 삭제
+// 그 외: WITHDRAWN(삭제 요청) 상태로 변경
+// ────────────────────────────────────────────────
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const auth = getAuth(req);
+  if (!auth.ok) return auth.response;
+
+  const { userId, role } = auth.payload;
+  const { id } = await params;
+
+  try {
+    const asset = await prisma.asset.findUnique({ where: { id } });
+
+    if (!asset) {
+      return NextResponse.json({ error: "자산을 찾을 수 없습니다." }, { status: 404 });
+    }
+
+    if (role !== "ADMIN" && asset.ownerUserId !== userId) {
+      return NextResponse.json({ error: "접근 권한이 없습니다." }, { status: 403 });
+    }
+
+    // ADMIN은 항상 즉시 삭제
+    if (role === "ADMIN" || asset.status === "PENDING_REVIEW") {
+      await prisma.asset.delete({ where: { id } });
+      return NextResponse.json({ deleted: true });
+    }
+
+    // 그 외 상태는 WITHDRAWN으로 변경 (삭제 요청)
+    const updated = await prisma.asset.update({
+      where: { id },
+      data: { status: "WITHDRAWN" },
+    });
+    return NextResponse.json({ withdrawn: true, asset: updated });
+  } catch (error) {
+    console.error("[DELETE /api/assets/[id]]", error);
+    return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
+  }
+}
+
+// ────────────────────────────────────────────────
 // PATCH /api/assets/[id] — 자산 수정
 // ADMIN: 전체 / USER: 본인 것만
 // ────────────────────────────────────────────────
