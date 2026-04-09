@@ -1,11 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function LoginPage() {
+function LoginForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const justRegistered = searchParams.get("registered") === "1";
+  const [remember, setRemember] = useState(true);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -20,7 +24,7 @@ export default function LoginPage() {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, remember }),
       });
 
       const json = await res.json();
@@ -63,6 +67,12 @@ export default function LoginPage() {
             <h1 className="text-2xl font-black text-white tracking-tight">로그인</h1>
             <p className="text-white/40 text-sm mt-1.5">계정 정보를 입력해주세요.</p>
           </div>
+
+          {justRegistered && (
+            <div className="mb-4 bg-green-500/10 border border-green-500/30 rounded-xl px-4 py-3">
+              <p className="text-sm text-green-400">회원가입이 완료되었습니다. 로그인해주세요.</p>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -121,5 +131,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }

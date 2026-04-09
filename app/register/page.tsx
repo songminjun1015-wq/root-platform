@@ -48,14 +48,7 @@ export default function RegisterPage() {
       const json = await res.json();
       if (!res.ok) { setError(json.error ?? "회원가입에 실패했습니다."); return; }
 
-      const loginRes = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: get("email"), password: get("password") }),
-      });
-
-      if (loginRes.ok) window.location.href = "/dashboard";
-      else router.push("/login");
+      router.push("/login?registered=1");
     } catch {
       setError("네트워크 오류가 발생했습니다.");
     } finally {
