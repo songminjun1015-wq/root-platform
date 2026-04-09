@@ -14,8 +14,11 @@ export default function ImageUploader({ value, onChange, maxCount = 4 }: Props) 
   const [dragOver, setDragOver] = useState<number | null>(null);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
+  const MAX_SIZE_MB = 30;
+
   async function handleFile(index: number, file: File) {
     if (!file.type.startsWith("image/")) { alert("이미지 파일만 업로드 가능합니다."); return; }
+    if (file.size > MAX_SIZE_MB * 1024 * 1024) { alert(`이미지 크기는 ${MAX_SIZE_MB}MB 이하여야 합니다.`); return; }
     setUploading(index);
     try {
       const ext = file.name.split(".").pop();
