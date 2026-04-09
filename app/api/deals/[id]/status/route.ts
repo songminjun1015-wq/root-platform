@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuth } from "@/lib/auth";
-import { DealStatus } from "@prisma/client";
+import { DealStatus, AssetStatus } from "@prisma/client";
 
 // 딜 상태 → 자산 상태 매핑
-const DEAL_TO_ASSET_STATUS: Partial<Record<DealStatus, string>> = {
-  WON:  "SOLD",
-  LOST: "ACTIVE", // 거래 불성사 시 자산 다시 활성화
+const DEAL_TO_ASSET_STATUS: Partial<Record<DealStatus, AssetStatus>> = {
+  WON:  AssetStatus.SOLD,
+  LOST: AssetStatus.ACTIVE, // 거래 불성사 시 자산 다시 활성화
 };
 
 // ────────────────────────────────────────────────
