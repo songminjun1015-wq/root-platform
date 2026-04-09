@@ -111,6 +111,43 @@ export async function sendDealStatusEmail(
   );
 }
 
+// ── 어드민에게 매칭 요청 알림 ────────────────────
+export async function sendMatchingRequestEmail(
+  adminEmail: string,
+  assetTitle: string,
+  assetId: string,
+  requesterName: string,
+  requesterCompany: string,
+  requesterEmail: string
+) {
+  const link = `${APP_URL}/assets/${assetId}`;
+  await send(
+    adminEmail,
+    `[ROOT 어드민] 매칭 요청 — ${assetTitle}`,
+    `
+    <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
+      <h2 style="color:#0A1628;font-size:22px;font-weight:900;margin:0 0 8px;">매칭 요청이 들어왔습니다</h2>
+      <p style="color:#64748b;font-size:14px;margin:0 0 16px;">아래 회원이 자산에 관심을 표시했습니다.</p>
+      <table style="width:100%;border-collapse:collapse;margin:0 0 24px;">
+        <tr><td style="color:#94a3b8;font-size:12px;padding:6px 0;">자산명</td>
+            <td style="color:#0A1628;font-size:14px;font-weight:600;">${assetTitle}</td></tr>
+        <tr><td style="color:#94a3b8;font-size:12px;padding:6px 0;">요청자</td>
+            <td style="color:#0A1628;font-size:14px;font-weight:600;">${requesterName} (${requesterCompany})</td></tr>
+        <tr><td style="color:#94a3b8;font-size:12px;padding:6px 0;">이메일</td>
+            <td style="color:#0A1628;font-size:14px;font-weight:600;">${requesterEmail}</td></tr>
+      </table>
+      <a href="${link}"
+        style="display:inline-block;background:#F97316;color:#fff;font-weight:700;font-size:14px;
+               padding:12px 28px;border-radius:10px;text-decoration:none;">
+        자산 확인하기 →
+      </a>
+      <hr style="border:none;border-top:1px solid #f1f5f9;margin:24px 0;"/>
+      <p style="color:#cbd5e1;font-size:11px;margin:0;">ROOT 운영 알림</p>
+    </div>
+    `
+  );
+}
+
 // ── 어드민에게 새 자산 등록 알림 ──────────────────
 export async function sendNewAssetNotifyAdmin(
   adminEmail: string,
