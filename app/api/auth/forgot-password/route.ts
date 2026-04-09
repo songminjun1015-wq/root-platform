@@ -15,15 +15,14 @@ export async function POST(req: NextRequest) {
 
     // 유저가 없어도 동일한 응답 (이메일 존재 여부 노출 방지)
     if (user) {
-      // 기존 토큰 삭제
-      await prisma.passwordResetToken.deleteMany({ where: { userId: user.id } });
-
       const token = crypto.randomBytes(32).toString("hex");
       const expiresAt = new Date(Date.now() + 1000 * 60 * 60); // 1시간
 
-      await prisma.passwordResetToken.create({
-        data: { userId: user.id, token, expiresAt },
-      });
+      // 기존 토큰 삭제 + 새 토큰 생성 원자적 처리
+      await prisma.$transaction([
+        prisma.passwordResetToken.deleteMany({ where: { userId: user.id } }),
+        prisma.passwordResetToken.create({ data: { userId: user.id, token, expiresAt } }),
+      ]);
 
       await sendPasswordResetEmail(email, token);
     }

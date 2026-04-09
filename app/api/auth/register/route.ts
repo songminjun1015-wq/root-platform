@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { signToken } from "@/lib/jwt";
 import { UserRole } from "@prisma/client";
+import { validatePassword } from "@/lib/password";
 
 interface RegisterBody {
   name: string;
@@ -64,19 +65,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "올바른 이메일 형식이 아닙니다." }, { status: 400 });
     }
 
-    if (password.length < MIN_PASSWORD_LENGTH) {
-      return NextResponse.json(
-        { error: `비밀번호는 최소 ${MIN_PASSWORD_LENGTH}자 이상이어야 합니다.` },
-        { status: 400 }
-      );
-    }
-
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=\S+$).{8,}$/;
-    if (!passwordRegex.test(password)) {
-      return NextResponse.json(
-        { error: "비밀번호는 영문과 숫자를 포함해야 합니다." },
-        { status: 400 }
-      );
+    const pwError = validatePassword(password);
+    if (pwError) {
+      return NextResponse.json({ error: pwError }, { status: 400 });
     }
 
     const existing = await prisma.user.findUnique({ where: { email: normalizedEmail } });

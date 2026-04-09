@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import { validatePassword } from "@/lib/password";
 
 export async function POST(req: NextRequest) {
   try {
@@ -10,13 +11,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "토큰과 새 비밀번호를 입력해주세요." }, { status: 400 });
     }
 
-    if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=\S+$).{8,}$/.test(password)) {
-      return NextResponse.json(
-        { error: "비밀번호는 영문+숫자 조합 8자 이상이어야 합니다." },
-        { status: 400 }
-      );
+    const pwError = validatePassword(password);
+    if (pwError) {
+      return NextResponse.json({ error: pwError }, { status: 400 });
     }
 
+    // 토큰 삭제와 유저 업데이트를 트랜잭션으로 처리 (토큰 재사용 방지)
     const resetToken = await prisma.passwordResetToken.findUnique({ where: { token } });
 
     if (!resetToken || resetToken.expiresAt < new Date()) {
@@ -28,12 +28,10 @@ export async function POST(req: NextRequest) {
 
     const passwordHash = await bcrypt.hash(password, 12);
 
-    await prisma.user.update({
-      where: { id: resetToken.userId },
-      data: { passwordHash },
-    });
-
-    await prisma.passwordResetToken.delete({ where: { token } });
+    await prisma.$transaction([
+      prisma.passwordResetToken.delete({ where: { token } }),
+      prisma.user.update({ where: { id: resetToken.userId }, data: { passwordHash } }),
+    ]);
 
     return NextResponse.json({ message: "비밀번호가 변경되었습니다." });
   } catch (error) {

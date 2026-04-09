@@ -3,6 +3,12 @@ import { prisma } from "@/lib/prisma";
 import { getAuth } from "@/lib/auth";
 import { DealStatus } from "@prisma/client";
 
+// 딜 상태 → 자산 상태 매핑
+const DEAL_TO_ASSET_STATUS: Partial<Record<DealStatus, string>> = {
+  WON:  "SOLD",
+  LOST: "ACTIVE", // 거래 불성사 시 자산 다시 활성화
+};
+
 // ────────────────────────────────────────────────
 // POST /api/deals/[id]/status — Deal 상태 변경 (ADMIN만 가능)
 // ────────────────────────────────────────────────
@@ -40,13 +46,21 @@ export async function POST(
       return NextResponse.json({ error: "Deal을 찾을 수 없습니다." }, { status: 404 });
     }
 
-    const updated = await prisma.deal.update({
-      where: { id },
-      data: {
-        status,
-        ...(notes !== undefined && { notes: notes?.trim() ?? null }),
-      },
-    });
+    const newAssetStatus = DEAL_TO_ASSET_STATUS[status as DealStatus];
+
+    const [updated] = await prisma.$transaction([
+      prisma.deal.update({
+        where: { id },
+        data: {
+          status,
+          ...(notes !== undefined && { notes: notes?.trim() ?? null }),
+          ...(status === "WON" && { closedAt: new Date() }),
+        },
+      }),
+      ...(deal.assetId && newAssetStatus
+        ? [prisma.asset.update({ where: { id: deal.assetId }, data: { status: newAssetStatus } })]
+        : []),
+    ]);
 
     return NextResponse.json({ deal: updated });
   } catch (error) {

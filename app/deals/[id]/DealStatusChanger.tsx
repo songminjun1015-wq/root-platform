@@ -6,6 +6,15 @@ import { useRouter } from "next/navigation";
 const STATUS_FLOW = ["NEW", "REVIEWING", "MATCHED", "NEGOTIATING", "WON", "LOST"] as const;
 type DealStatus = (typeof STATUS_FLOW)[number];
 
+const STATUS_LABEL: Record<DealStatus, string> = {
+  NEW: "신규",
+  REVIEWING: "검토 중",
+  MATCHED: "매칭됨",
+  NEGOTIATING: "협상 중",
+  WON: "거래성사",
+  LOST: "거래불성사",
+};
+
 const STATUS_COLORS: Record<DealStatus, string> = {
   NEW: "bg-gray-100 text-gray-700 hover:bg-gray-200",
   REVIEWING: "bg-yellow-100 text-yellow-700 hover:bg-yellow-200",
@@ -61,7 +70,7 @@ export default function DealStatusChanger({
                 : STATUS_COLORS[status]
             }`}
           >
-            {loading === status ? "변경 중..." : status}
+            {loading === status ? "변경 중..." : STATUS_LABEL[status]}
             {status === currentStatus && " ✓"}
           </button>
         ))}

@@ -80,7 +80,13 @@ export default function RequestEditPage() {
 
   if (!form) return (
     <div className="p-8 max-w-2xl mx-auto">
-      {error ? <p className="text-red-600 text-sm">{error}</p> : <p className="text-gray-400 text-sm">불러오는 중...</p>}
+      <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
+        <span>구매 요청</span><span>/</span><span>상세</span><span>/</span><span className="text-gray-600">수정</span>
+      </div>
+      <h1 className="text-2xl font-bold text-gray-900 mb-8">요청 수정</h1>
+      {error
+        ? <div className="bg-red-50 border border-red-200 rounded-lg px-3.5 py-2.5"><p className="text-sm text-red-600">{error}</p></div>
+        : <p className="text-gray-400 text-sm">불러오는 중...</p>}
     </div>
   );
 

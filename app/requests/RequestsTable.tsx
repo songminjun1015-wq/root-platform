@@ -57,8 +57,10 @@ export default function RequestsTable({
   const router = useRouter();
   const [openId, setOpenId] = useState<string | null>(null);
   const [loading, setLoading] = useState<string | null>(null);
+  const [error, setError] = useState("");
 
   async function changeStatus(requestId: string, status: RequestStatus) {
+    setError("");
     setLoading(requestId + status);
     try {
       const res = await fetch(`/api/requests/${requestId}`, {
@@ -69,13 +71,24 @@ export default function RequestsTable({
       if (res.ok) {
         setOpenId(null);
         router.refresh();
+      } else {
+        const json = await res.json();
+        setError(json.error ?? "상태 변경에 실패했습니다.");
       }
+    } catch {
+      setError("네트워크 오류가 발생했습니다.");
     } finally {
       setLoading(null);
     }
   }
 
   return (
+    <>
+    {error && (
+      <div className="mx-5 mb-3 bg-red-50 border border-red-200 rounded-lg px-3.5 py-2.5">
+        <p className="text-sm text-red-600">{error}</p>
+      </div>
+    )}
     <table className="w-full text-sm">
       <thead className="border-b border-slate-100">
         <tr>
@@ -157,5 +170,6 @@ export default function RequestsTable({
         ))}
       </tbody>
     </table>
+    </>
   );
 }

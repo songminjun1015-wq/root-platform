@@ -124,8 +124,14 @@ export default function AssetEditPage() {
   }
 
   if (!form) return (
-    <div className="p-8 max-w-2xl mx-auto">
-      {error ? <p className="text-red-600 text-sm">{error}</p> : <p className="text-slate-400 text-sm">불러오는 중...</p>}
+    <div className="p-6 sm:p-8 max-w-2xl mx-auto">
+      <div className="flex items-center gap-2 text-sm text-slate-400 mb-6">
+        <span>자산 관리</span><span>/</span><span>상세</span><span>/</span><span className="text-slate-600">수정</span>
+      </div>
+      <h1 className="text-2xl font-black text-slate-900 mb-8 tracking-tight">자산 수정</h1>
+      {error
+        ? <div className="bg-red-50 border border-red-200 rounded-lg px-3.5 py-2.5"><p className="text-sm text-red-600">{error}</p></div>
+        : <p className="text-slate-400 text-sm">불러오는 중...</p>}
     </div>
   );
 
