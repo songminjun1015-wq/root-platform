@@ -1,12 +1,17 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let _resend: Resend | null = null;
+function getResend() {
+  if (!_resend) _resend = new Resend(process.env.RESEND_API_KEY);
+  return _resend;
+}
+
 const FROM = process.env.EMAIL_FROM ?? "ROOT <onboarding@resend.dev>";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
 // ── 공통 이메일 래퍼 ──────────────────────────────
 async function send(to: string, subject: string, html: string) {
-  const { error } = await resend.emails.send({ from: FROM, to, subject, html });
+  const { error } = await getResend().emails.send({ from: FROM, to, subject, html });
   if (error) console.error("[email]", error);
 }
 
