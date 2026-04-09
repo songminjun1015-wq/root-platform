@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "토큰과 새 비밀번호를 입력해주세요." }, { status: 400 });
     }
 
-    if (!/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(password)) {
+    if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=\S+$).{8,}$/.test(password)) {
       return NextResponse.json(
         { error: "비밀번호는 영문+숫자 조합 8자 이상이어야 합니다." },
         { status: 400 }

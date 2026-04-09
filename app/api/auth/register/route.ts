@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=\S+$).{8,}$/;
     if (!passwordRegex.test(password)) {
       return NextResponse.json(
         { error: "비밀번호는 영문과 숫자를 포함해야 합니다." },

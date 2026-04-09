@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "현재 비밀번호와 새 비밀번호를 입력해주세요." }, { status: 400 });
     }
 
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=\S+$).{8,}$/;
     if (!passwordRegex.test(newPassword)) {
       return NextResponse.json({ error: "새 비밀번호는 영문+숫자 조합 8자 이상이어야 합니다." }, { status: 400 });
     }
