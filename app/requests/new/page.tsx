@@ -38,6 +38,7 @@ export default function RequestNewPage() {
           budgetMin: get("budgetMin") ? Number(get("budgetMin")) : null,
           budgetMax: get("budgetMax") ? Number(get("budgetMax")) : null,
           description: get("description").trim() || null,
+          contactPhone: get("contactPhone").trim() || null,
         }),
       });
       const json = await res.json();
@@ -98,6 +99,11 @@ export default function RequestNewPage() {
         <div className="grid grid-cols-2 gap-4">
           <PriceInput name="budgetMin" label="최소 예산 (원)" placeholder="0" />
           <PriceInput name="budgetMax" label="최대 예산 (원)" placeholder="예: 10,000,000" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">연락처</label>
+          <input name="contactPhone" type="tel" placeholder="예: 010-1234-5678"
+            className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">설명</label>

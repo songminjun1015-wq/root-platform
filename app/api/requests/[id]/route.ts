@@ -75,6 +75,7 @@ export async function PATCH(
       transportRequired,
       installationRequired,
       description,
+      contactPhone,
       status,
     } = body;
 
@@ -108,6 +109,7 @@ export async function PATCH(
         ...(transportRequired !== undefined && { transportRequired }),
         ...(installationRequired !== undefined && { installationRequired }),
         ...(description !== undefined && { description: description?.trim() ?? null }),
+        ...(contactPhone !== undefined && { contactPhone: contactPhone?.trim() ?? null }),
         ...(status !== undefined && role === "ADMIN" && { status }),
       },
     });

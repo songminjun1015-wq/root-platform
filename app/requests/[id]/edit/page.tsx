@@ -15,7 +15,7 @@ const URGENCY = [
 interface Form {
   requestTitle: string; category: string; desiredQuantity: string;
   preferredRegion: string; urgencyLevel: string;
-  budgetMin: string; budgetMax: string; description: string;
+  budgetMin: string; budgetMax: string; description: string; contactPhone: string;
 }
 
 export default function RequestEditPage() {
@@ -38,6 +38,7 @@ export default function RequestEditPage() {
         budgetMin: req.budgetMin ?? "",
         budgetMax: req.budgetMax ?? "",
         description: req.description ?? "",
+        contactPhone: req.contactPhone ?? "",
       });
     });
   }, [id]);
@@ -64,6 +65,7 @@ export default function RequestEditPage() {
           budgetMin: form.budgetMin ? Number(form.budgetMin) : null,
           budgetMax: form.budgetMax ? Number(form.budgetMax) : null,
           description: form.description || null,
+          contactPhone: form.contactPhone || null,
         }),
       });
       const json = await res.json();
@@ -135,9 +137,14 @@ export default function RequestEditPage() {
           <PriceInput name="budgetMax" label="최대 예산 (원)" value={form.budgetMax} onChange={(v) => setForm((p) => p ? { ...p, budgetMax: v } : p)} />
         </div>
         <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">연락처</label>
+          <input name="contactPhone" type="tel" value={form.contactPhone} onChange={handleChange} placeholder="예: 010-1234-5678"
+            className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
+        </div>
+        <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">설명</label>
           <textarea name="description" value={form.description} onChange={handleChange} rows={4}
-            className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none" />
+            className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent resize-none" />
         </div>
 
         {error && <div className="bg-red-50 border border-red-200 rounded-lg px-3.5 py-2.5"><p className="text-sm text-red-600">{error}</p></div>}

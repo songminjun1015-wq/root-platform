@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
       transportRequired,
       installationRequired,
       description,
+      contactPhone,
     } = body;
 
     if (!requestTitle || !category || !desiredQuantity || !preferredRegion) {
@@ -63,6 +64,7 @@ export async function POST(req: NextRequest) {
         transportRequired: transportRequired ?? false,
         installationRequired: installationRequired ?? false,
         description: description?.trim() ?? null,
+        contactPhone: contactPhone?.trim() ?? null,
       },
     });
 

@@ -8,130 +8,78 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// ────────────────────────────────────────────────
-// Enums
-// ────────────────────────────────────────────────
-
-enum UserRole {
-  ADMIN
-  USER
-}
-
-enum AssetStatus {
-  PENDING_REVIEW  // 관리자 검토 대기
-  ACTIVE          // 매칭 가능 상태
-  MATCHED         // 딜 연결됨
-  SOLD            // 거래 완료
-  WITHDRAWN       // 철회됨
-}
-
-enum RequestStatus {
-  PENDING_REVIEW  // 관리자 검토 대기
-  ACTIVE          // 매칭 가능 상태
-  MATCHED         // 딜 연결됨
-  CLOSED          // 처리 완료
-  WITHDRAWN       // 철회됨
-}
-
-enum DealStatus {
-  NEW             // 딜 생성됨
-  REVIEWING       // 검토 중
-  MATCHED         // 자산↔요청 매칭 확정
-  NEGOTIATING     // 협상 중
-  WON             // 거래 성사
-  LOST            // 거래 불성사
-}
-
-enum UrgencyLevel {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
-}
-
-// ────────────────────────────────────────────────
-// Models
-// ────────────────────────────────────────────────
-
 model User {
-  id           String   @id @default(cuid())
-  name         String
-  email        String   @unique
-  passwordHash String
-  companyName  String
-  role         UserRole
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
+  id                  String               @id @default(cuid())
+  name                String
+  email               String               @unique
+  passwordHash        String
+  companyName         String
+  role                UserRole
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
   assets              Asset[]
-  requests            Request[]
   dealsCreated        Deal[]
   passwordResetTokens PasswordResetToken[]
+  requests            Request[]
 }
 
 model Asset {
-  id                  String      @id @default(cuid())
-  ownerUserId         String
-  assetTitle          String
-  category            String
-  subcategory         String?
-  manufacturer        String?
-  modelName           String?
-  quantity            Int
-  unit                String?
-  conditionGrade      String
-  locationRegion      String
-  locationDetail      String?
-  askingPrice         Decimal?    @db.Decimal(18, 2)
-  priceNegotiable     Boolean     @default(false)
-  description         String?
-  imageUrls           String[]
+  id                   String      @id @default(cuid())
+  ownerUserId          String
+  assetTitle           String
+  category             String
+  subcategory          String?
+  manufacturer         String?
+  modelName            String?
+  quantity             Int
+  unit                 String?
+  conditionGrade       String
+  locationRegion       String
+  locationDetail       String?
+  askingPrice          Decimal?    @db.Decimal(18, 2)
+  priceNegotiable      Boolean     @default(false)
+  description          String?
+  imageUrls            String[]
   dismantlingRequired  Boolean     @default(false)
   transportRequired    Boolean     @default(false)
   installationRequired Boolean     @default(false)
-
-  // 장비 이력
-  manufacturedYear  Int?
-  manufacturedMonth Int?
-  purchasedAt       DateTime?
-  purchasedFrom     String?
-  purchasePrice     Decimal?    @db.Decimal(18, 2)
-
-  // 서비스 옵션 (다중 선택)
-  serviceOptions    String[]
-
-  status              AssetStatus @default(PENDING_REVIEW)
-  createdAt           DateTime    @default(now())
-  updatedAt           DateTime    @updatedAt
-
-  owner  User   @relation(fields: [ownerUserId], references: [id])
-  deals  Deal[]
+  status               AssetStatus @default(PENDING_REVIEW)
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+  manufacturedMonth    Int?
+  manufacturedYear     Int?
+  purchasePrice        Decimal?    @db.Decimal(18, 2)
+  purchasedAt          DateTime?
+  purchasedFrom        String?
+  serviceOptions       String[]
+  owner                User        @relation(fields: [ownerUserId], references: [id])
+  deals                Deal[]
 
   @@index([status])
   @@index([ownerUserId])
 }
 
 model Request {
-  id               String        @id @default(cuid())
-  requesterUserId  String
-  requestTitle     String
-  category         String
-  subcategory      String?
-  desiredQuantity  Int
-  budgetMin        Decimal?      @db.Decimal(18, 2)
-  budgetMax        Decimal?      @db.Decimal(18, 2)
-  preferredRegion  String
-  neededByDate     DateTime?
-  urgencyLevel     UrgencyLevel  @default(MEDIUM)
-  transportRequired    Boolean   @default(false)
-  installationRequired Boolean   @default(false)
-  description      String?
-  status           RequestStatus @default(PENDING_REVIEW)
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
-
-  requester  User   @relation(fields: [requesterUserId], references: [id])
-  deals      Deal[]
+  id                   String        @id @default(cuid())
+  requesterUserId      String
+  requestTitle         String
+  category             String
+  subcategory          String?
+  desiredQuantity      Int
+  budgetMin            Decimal?      @db.Decimal(18, 2)
+  budgetMax            Decimal?      @db.Decimal(18, 2)
+  preferredRegion      String
+  neededByDate         DateTime?
+  urgencyLevel         UrgencyLevel  @default(MEDIUM)
+  transportRequired    Boolean       @default(false)
+  installationRequired Boolean       @default(false)
+  description          String?
+  contactPhone         String?
+  status               RequestStatus @default(PENDING_REVIEW)
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  deals                Deal[]
+  requester            User          @relation(fields: [requesterUserId], references: [id])
 
   @@index([status])
   @@index([requesterUserId])
@@ -143,8 +91,7 @@ model PasswordResetToken {
   token     String   @unique
   expiresAt DateTime
   createdAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -159,21 +106,56 @@ model Deal {
   expectedValue    Decimal?   @db.Decimal(18, 2)
   finalValue       Decimal?   @db.Decimal(18, 2)
   notes            String?
-  // 과거 거래 수기 입력
-  isHistorical     Boolean    @default(false)
-  closedAt         DateTime?
-  sellerName       String?
-  sellerCompany    String?
-  buyerName        String?
-  buyerCompany     String?
   createdAt        DateTime   @default(now())
   updatedAt        DateTime   @updatedAt
-
-  asset        Asset?   @relation(fields: [assetId], references: [id])
-  request      Request? @relation(fields: [requestId], references: [id])
-  createdBy    User     @relation(fields: [createdByAdminId], references: [id])
+  buyerCompany     String?
+  buyerName        String?
+  closedAt         DateTime?
+  isHistorical     Boolean    @default(false)
+  sellerCompany    String?
+  sellerName       String?
+  asset            Asset?     @relation(fields: [assetId], references: [id])
+  createdBy        User       @relation(fields: [createdByAdminId], references: [id])
+  request          Request?   @relation(fields: [requestId], references: [id])
 
   @@index([status])
   @@index([assetId])
   @@index([requestId])
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum AssetStatus {
+  PENDING_REVIEW
+  ACTIVE
+  MATCHED
+  SOLD
+  WITHDRAWN
+}
+
+enum RequestStatus {
+  PENDING_REVIEW
+  ACTIVE
+  MATCHED
+  CLOSED
+  WITHDRAWN
+}
+
+enum DealStatus {
+  NEW
+  REVIEWING
+  MATCHED
+  NEGOTIATING
+  WON
+  LOST
+}
+
+enum UrgencyLevel {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
 }

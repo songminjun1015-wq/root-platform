@@ -39,6 +39,7 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
     { label: "운반 필요", value: request.transportRequired ? "예" : "아니오" },
     { label: "설치 필요", value: request.installationRequired ? "예" : "아니오" },
     { label: "요청자", value: `${request.requester.name} (${request.requester.companyName})` },
+    ...(user.role === "ADMIN" && request.contactPhone ? [{ label: "연락처", value: request.contactPhone }] : []),
   ];
 
   return (
