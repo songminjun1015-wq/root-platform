@@ -17,6 +17,7 @@ export default function AssetNewPage() {
   const router = useRouter();
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [serviceOptions, setServiceOptions] = useState<string[]>([]);
+  const [purchasedAtUnknown, setPurchasedAtUnknown] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -47,9 +48,9 @@ export default function AssetNewPage() {
       description:    get("description").trim() || null,
       imageUrls:      imageUrls.filter(Boolean),
       // 장비 이력
-      manufacturedYear:  get("manufacturedYear") ? Number(get("manufacturedYear")) : null,
-      manufacturedMonth: get("manufacturedMonth") ? Number(get("manufacturedMonth")) : null,
-      purchasedAt:       get("purchasedAt") || null,
+      manufacturedYear:  get("manufacturedYear") === "unknown" ? null : (get("manufacturedYear") ? Number(get("manufacturedYear")) : null),
+      manufacturedMonth: get("manufacturedMonth") === "unknown" ? null : (get("manufacturedMonth") ? Number(get("manufacturedMonth")) : null),
+      purchasedAt:       purchasedAtUnknown ? null : (get("purchasedAt") || null),
       purchasedFrom:     get("purchasedFrom").trim() || null,
       purchasePrice:     get("purchasePrice") ? Number(get("purchasePrice")) : null,
       // 서비스 옵션
@@ -125,6 +126,7 @@ export default function AssetNewPage() {
               <select name="manufacturedYear"
                 className="w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
                 <option value="">선택</option>
+                <option value="unknown">모름</option>
                 {Array.from({ length: 40 }, (_, i) => new Date().getFullYear() - i).map((y) => (
                   <option key={y} value={y}>{y}년</option>
                 ))}
@@ -135,13 +137,25 @@ export default function AssetNewPage() {
               <select name="manufacturedMonth"
                 className="w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
                 <option value="">선택</option>
+                <option value="unknown">모름</option>
                 {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
                   <option key={m} value={m}>{m}월</option>
                 ))}
               </select>
             </div>
           </div>
-          <FormField label="구매일자" name="purchasedAt" type="date" />
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-sm font-medium text-slate-700">구매일자</label>
+              <label className="flex items-center gap-1.5 text-sm text-slate-500 cursor-pointer">
+                <input type="checkbox" checked={purchasedAtUnknown} onChange={(e) => setPurchasedAtUnknown(e.target.checked)}
+                  className="rounded border-slate-300 text-orange-500" />
+                모름
+              </label>
+            </div>
+            <input name="purchasedAt" type="date" disabled={purchasedAtUnknown}
+              className="w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent disabled:bg-slate-50 disabled:text-slate-300" />
+          </div>
           <FormField label="구매처" name="purchasedFrom" placeholder="예: 현대중장비" />
           <FormField label="구매금액 (원)" name="purchasePrice" type="number" min="0" placeholder="예: 15000000" />
           <p className="text-xs text-slate-400">※ 구매금액은 본인과 운영자만 확인할 수 있습니다.</p>

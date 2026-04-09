@@ -70,7 +70,7 @@ export default function RegisterPage() {
         <div>
           <p className="text-4xl font-black text-white leading-tight mb-4">
             지금 시작하세요.<br />
-            <span className="text-indigo-400">무료입니다.</span>
+            <span className="text-orange-400">무료입니다.</span>
           </p>
           <p className="text-slate-400 text-base leading-relaxed">
             자산 등록도, 구매 요청도 모두 하나의 계정으로.<br />
@@ -101,7 +101,7 @@ export default function RegisterPage() {
                   name={name} type={type} required
                   minLength={name === "password" ? 8 : undefined}
                   placeholder={placeholder}
-                  className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder:text-slate-300 transition-shadow"
+                  className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent placeholder:text-slate-300 transition-shadow"
                 />
               </div>
             ))}
@@ -113,14 +113,14 @@ export default function RegisterPage() {
             )}
 
             <button type="submit" disabled={loading}
-              className="w-full bg-indigo-700 text-white py-3 rounded-xl text-sm font-bold hover:bg-indigo-800 disabled:opacity-50 transition-colors mt-2">
+              className="w-full bg-orange-500 text-white py-3 rounded-xl text-sm font-bold hover:bg-orange-400 disabled:opacity-50 transition-colors mt-2">
               {loading ? "가입 중..." : "가입하기"}
             </button>
           </form>
 
           <p className="text-center text-sm text-slate-400 mt-6">
             이미 계정이 있으신가요?{" "}
-            <Link href="/login" className="text-indigo-600 font-semibold hover:underline">로그인</Link>
+            <Link href="/login" className="text-orange-500 font-semibold hover:underline">로그인</Link>
           </p>
         </div>
       </div>

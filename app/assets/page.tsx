@@ -23,7 +23,7 @@ export default async function AssetsPage() {
           </h1>
           <p className="text-slate-400 text-sm mt-1 font-medium">{assets.length}개의 자산</p>
         </div>
-        <Link href="/assets/new" className="bg-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-indigo-800 transition-colors">
+        <Link href="/assets/new" className="bg-orange-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-400 transition-colors">
           + 자산 등록
         </Link>
       </div>
@@ -37,7 +37,7 @@ export default async function AssetsPage() {
               </svg>
             </div>
             <p className="text-slate-400 text-sm font-medium">등록된 자산이 없습니다.</p>
-            <Link href="/assets/new" className="mt-3 inline-block text-indigo-600 text-sm font-semibold hover:underline">
+            <Link href="/assets/new" className="mt-3 inline-block text-orange-500 text-sm font-semibold hover:underline">
               첫 자산 등록하기 →
             </Link>
           </div>

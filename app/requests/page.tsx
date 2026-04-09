@@ -21,7 +21,7 @@ export default async function RequestsPage() {
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">구매 요청</h1>
           <p className="text-slate-400 text-sm mt-1 font-medium">{requests.length}개의 요청</p>
         </div>
-        <Link href="/requests/new" className="bg-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-indigo-800 transition-colors">
+        <Link href="/requests/new" className="bg-orange-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-400 transition-colors">
           + 요청 등록
         </Link>
       </div>
@@ -35,7 +35,7 @@ export default async function RequestsPage() {
               </svg>
             </div>
             <p className="text-slate-400 text-sm font-medium">등록된 요청이 없습니다.</p>
-            <Link href="/requests/new" className="mt-3 inline-block text-indigo-600 text-sm font-semibold hover:underline">
+            <Link href="/requests/new" className="mt-3 inline-block text-orange-500 text-sm font-semibold hover:underline">
               첫 요청 등록하기 →
             </Link>
           </div>

@@ -62,24 +62,24 @@ export default function RequestNewPage() {
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">요청명 *</label>
           <input name="requestTitle" required placeholder="예: 지게차 2~3t 1대 구매"
-            className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">카테고리 *</label>
             <input name="category" required placeholder="예: 물류장비"
-              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">희망 수량 *</label>
             <input name="desiredQuantity" type="number" min="1" required
-              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
           </div>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">지역 *</label>
           <input name="preferredRegion" required placeholder="예: 경기도, 수도권 전체"
-            className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">긴급도 *</label>
@@ -87,7 +87,7 @@ export default function RequestNewPage() {
             {URGENCY.map((u) => (
               <button key={u.value} type="button" onClick={() => setUrgencyLevel(u.value)}
                 className={`flex-1 py-2 rounded-lg border text-sm font-medium transition-colors ${
-                  urgencyLevel === u.value ? "bg-blue-600 text-white border-blue-600" : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50"
+                  urgencyLevel === u.value ? "bg-orange-500 text-white border-orange-500" : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50"
                 }`}>
                 {u.label}
               </button>
@@ -98,25 +98,25 @@ export default function RequestNewPage() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">최소 예산 (원)</label>
             <input name="budgetMin" type="number" min="0" placeholder="0"
-              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">최대 예산 (원)</label>
             <input name="budgetMax" type="number" min="0" placeholder="예: 10000000"
-              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
           </div>
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">설명</label>
           <textarea name="description" rows={4} placeholder="필요한 사양, 용도, 기타 요구사항을 입력하세요."
-            className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none" />
+            className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent resize-none" />
         </div>
 
         {error && <div className="bg-red-50 border border-red-200 rounded-lg px-3.5 py-2.5"><p className="text-sm text-red-600">{error}</p></div>}
 
         <div className="flex gap-3 pt-2">
           <button type="submit" disabled={loading}
-            className="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors">
+            className="bg-orange-500 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-orange-400 disabled:opacity-50 transition-colors">
             {loading ? "등록 중..." : "등록하기"}
           </button>
           <Link href="/requests" className="bg-white border border-gray-300 text-gray-700 px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors">
