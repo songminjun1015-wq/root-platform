@@ -79,6 +79,12 @@ export default function Sidebar({ session }: { session: JwtPayload | null }) {
             </span>
           </div>
         )}
+        <Link
+          href="/settings"
+          className="block w-full text-sm text-white/25 hover:text-white/60 transition-colors py-1 font-medium mb-1"
+        >
+          설정 (비밀번호 변경)
+        </Link>
         <button
           onClick={handleLogout}
           className="w-full text-left text-sm text-white/25 hover:text-white/60 transition-colors py-1 font-medium"
