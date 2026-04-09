@@ -3,6 +3,7 @@ import { getSessionUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import StatusBadge from "@/app/_components/StatusBadge";
+import ApproveAssetButton from "./ApproveAssetButton";
 
 export default async function AssetsPage() {
   const user = await getSessionUser();
@@ -78,11 +79,16 @@ export default async function AssetsPage() {
                     <StatusBadge status={a.status} />
                   </td>
                   <td className="px-5 py-4">
-                    {(user.role === "ADMIN" || a.ownerUserId === user.id) && (
-                      <Link href={`/assets/${a.id}/edit`} className="text-xs text-slate-400 font-medium hover:text-indigo-600 transition-colors">
-                        수정
-                      </Link>
-                    )}
+                    <div className="flex items-center gap-3">
+                      {user.role === "ADMIN" && a.status === "PENDING_REVIEW" && (
+                        <ApproveAssetButton assetId={a.id} />
+                      )}
+                      {(user.role === "ADMIN" || a.ownerUserId === user.id) && (
+                        <Link href={`/assets/${a.id}/edit`} className="text-xs text-slate-400 font-medium hover:text-orange-500 transition-colors">
+                          수정
+                        </Link>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
