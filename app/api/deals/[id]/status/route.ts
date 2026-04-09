@@ -49,7 +49,8 @@ export async function POST(
     });
 
     return NextResponse.json({ deal: updated });
-  } catch {
+  } catch (error) {
+    console.error("[POST /api/deals/[id]/status]", error);
     return NextResponse.json({ error: "서버 오류가 발생했습니다." }, { status: 500 });
   }
 }

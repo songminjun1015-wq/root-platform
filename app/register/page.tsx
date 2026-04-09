@@ -17,6 +17,21 @@ export default function RegisterPage() {
     const form = e.currentTarget;
     const get = (name: string) => (form.elements.namedItem(name) as HTMLInputElement).value;
 
+    const nameVal = get("name").trim();
+    const companyVal = get("companyName").trim();
+
+    if (!nameVal || nameVal.length < 2) {
+      setError("이름은 최소 2자 이상이어야 합니다.");
+      setLoading(false);
+      return;
+    }
+
+    if (!companyVal) {
+      setError("회사명을 입력해주세요.");
+      setLoading(false);
+      return;
+    }
+
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",

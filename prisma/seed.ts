@@ -7,9 +7,7 @@ async function main() {
   console.log("🌱 시드 데이터 삽입 시작...");
 
   // ── 유저 생성 ──
-  const adminHash = await bcrypt.hash("12345678", 12);
-  const sellerHash = await bcrypt.hash("12345678", 12);
-  const buyerHash = await bcrypt.hash("12345678", 12);
+  const passwordHash = await bcrypt.hash("12345678", 12);
 
   const admin = await prisma.user.upsert({
     where: { email: "admin@root.com" },
@@ -17,7 +15,7 @@ async function main() {
     create: {
       name: "송민준",
       email: "admin@root.com",
-      passwordHash: adminHash,
+      passwordHash,
       companyName: "ROOT",
       role: UserRole.ADMIN,
     },
@@ -29,7 +27,7 @@ async function main() {
     create: {
       name: "김철수",
       email: "seller1@test.com",
-      passwordHash: sellerHash,
+      passwordHash: passwordHash,
       companyName: "대한물류",
       role: UserRole.USER,
     },
@@ -41,7 +39,7 @@ async function main() {
     create: {
       name: "이영희",
       email: "seller2@test.com",
-      passwordHash: sellerHash,
+      passwordHash: passwordHash,
       companyName: "한국건설",
       role: UserRole.USER,
     },
@@ -53,7 +51,7 @@ async function main() {
     create: {
       name: "박지훈",
       email: "buyer1@test.com",
-      passwordHash: buyerHash,
+      passwordHash: passwordHash,
       companyName: "신흥산업",
       role: UserRole.USER,
     },
@@ -65,7 +63,7 @@ async function main() {
     create: {
       name: "최수진",
       email: "buyer2@test.com",
-      passwordHash: buyerHash,
+      passwordHash: passwordHash,
       companyName: "미래물류",
       role: UserRole.USER,
     },
@@ -377,7 +375,7 @@ async function main() {
       requestId: requests[0].id,  // 지게차 구매 요청
       expectedValue: 8500000,
       status: DealStatus.NEGOTIATING,
-      notes: "양측 가격 협의 중. SELLER 8,500만 / BUYER 800만 희망. 중간선 조율 필요.",
+      notes: "양측 가격 협의 중. 판매자 8,500만 / 구매자 800만 희망. 중간선 조율 필요.",
     },
     {
       createdByAdminId: admin.id,
@@ -427,8 +425,8 @@ async function main() {
   console.log("─────────────────────────────");
   console.log("계정 정보 (비밀번호 모두 12345678)");
   console.log("ADMIN  : admin@root.com");
-  console.log("SELLER : seller1@test.com / seller2@test.com");
-  console.log("BUYER  : buyer1@test.com  / buyer2@test.com");
+  console.log("USER   : seller1@test.com / seller2@test.com");
+  console.log("USER   : buyer1@test.com  / buyer2@test.com");
 }
 
 main()

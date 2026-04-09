@@ -28,12 +28,6 @@ export async function GET(
       return NextResponse.json({ error: "접근 권한이 없습니다." }, { status: 403 });
     }
 
-    // 구매금액은 본인(소유자) + ADMIN만 노출
-    if (role !== "ADMIN" && asset.ownerUserId !== userId) {
-      const { purchasePrice: _, ...rest } = asset;
-      return NextResponse.json({ asset: rest });
-    }
-
     return NextResponse.json({ asset });
   } catch (error) {
     console.error("[API /api/assets/[id]]", error);

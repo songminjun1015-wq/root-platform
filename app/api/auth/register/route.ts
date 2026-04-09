@@ -22,20 +22,45 @@ export async function POST(req: NextRequest) {
 
     if (!name || !email || !password || !companyName || !role) {
       return NextResponse.json(
-        { error: "name, email, password, companyName, role는 필수입니다." },
+        { error: "이름, 이메일, 비밀번호, 회사명은 필수입니다." },
+        { status: 400 }
+      );
+    }
+
+    const normalizedName = name.trim();
+    const normalizedCompanyName = companyName.trim();
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!normalizedName) {
+      return NextResponse.json(
+        { error: "이름을 입력해주세요." },
+        { status: 400 }
+      );
+    }
+
+    if (normalizedName.length < 2) {
+      return NextResponse.json(
+        { error: "이름은 최소 2자 이상이어야 합니다." },
+        { status: 400 }
+      );
+    }
+
+    if (!normalizedCompanyName) {
+      return NextResponse.json(
+        { error: "회사명을 입력해주세요." },
         { status: 400 }
       );
     }
 
     if (!ALLOWED_ROLES.includes(role)) {
       return NextResponse.json(
-        { error: "role은 SELLER 또는 BUYER여야 합니다." },
+        { error: "허용되지 않는 역할입니다." },
         { status: 400 }
       );
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
+    if (!emailRegex.test(normalizedEmail)) {
       return NextResponse.json({ error: "올바른 이메일 형식이 아닙니다." }, { status: 400 });
     }
 
@@ -53,10 +78,6 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-
-    const normalizedEmail = email.trim().toLowerCase();
-    const normalizedName = name.trim();
-    const normalizedCompanyName = companyName.trim();
 
     const existing = await prisma.user.findUnique({ where: { email: normalizedEmail } });
     if (existing) {
