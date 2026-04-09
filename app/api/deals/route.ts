@@ -36,6 +36,9 @@ export async function POST(req: NextRequest) {
       if (!asset) {
         return NextResponse.json({ error: "존재하지 않는 assetId입니다." }, { status: 400 });
       }
+      if (asset.status !== "ACTIVE") {
+        return NextResponse.json({ error: "ACTIVE 상태인 자산만 딜에 연결할 수 있습니다." }, { status: 400 });
+      }
     }
 
     if (requestId) {
@@ -45,20 +48,23 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const deal = await prisma.deal.create({
-      data: {
-        createdByAdminId: userId,
-        dealTitle: dealTitle.trim(),
-        assetId: assetId ?? null,
-        requestId: requestId ?? null,
-        expectedValue: expectedValue ?? null,
-        notes: notes?.trim() ?? null,
-      },
-      include: {
-        asset: { select: { id: true, assetTitle: true } },
-        request: { select: { id: true, requestTitle: true } },
-      },
-    });
+    const [deal] = await prisma.$transaction([
+      prisma.deal.create({
+        data: {
+          createdByAdminId: userId,
+          dealTitle: dealTitle.trim(),
+          assetId: assetId ?? null,
+          requestId: requestId ?? null,
+          expectedValue: expectedValue ?? null,
+          notes: notes?.trim() ?? null,
+        },
+        include: {
+          asset: { select: { id: true, assetTitle: true } },
+          request: { select: { id: true, requestTitle: true } },
+        },
+      }),
+      ...(assetId ? [prisma.asset.update({ where: { id: assetId }, data: { status: "MATCHED" } })] : []),
+    ]);
 
     return NextResponse.json({ deal }, { status: 201 });
   } catch (error) {
