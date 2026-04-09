@@ -90,6 +90,19 @@ export async function PATCH(
       status,
     } = body;
 
+    if (assetTitle !== undefined && !assetTitle.trim()) {
+      return NextResponse.json({ error: "자산명을 입력해주세요." }, { status: 400 });
+    }
+    if (category !== undefined && !category.trim()) {
+      return NextResponse.json({ error: "카테고리를 입력해주세요." }, { status: 400 });
+    }
+    if (conditionGrade !== undefined && !conditionGrade.trim()) {
+      return NextResponse.json({ error: "상태등급을 선택해주세요." }, { status: 400 });
+    }
+    if (locationRegion !== undefined && !locationRegion.trim()) {
+      return NextResponse.json({ error: "지역을 입력해주세요." }, { status: 400 });
+    }
+
     if (quantity !== undefined && (typeof quantity !== "number" || quantity < 1 || quantity > 9999)) {
       return NextResponse.json({ error: "수량은 1~9,999 사이여야 합니다." }, { status: 400 });
     }
