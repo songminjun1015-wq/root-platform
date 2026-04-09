@@ -9,6 +9,7 @@ function LoginForm() {
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const justRegistered = searchParams.get("registered") === "1";
+  const nextUrl = searchParams.get("next") ?? "/dashboard";
   const [remember, setRemember] = useState(true);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -33,7 +34,7 @@ function LoginForm() {
         return;
       }
 
-      window.location.href = "/dashboard";
+      window.location.href = nextUrl;
     } catch {
       setError("네트워크 오류가 발생했습니다.");
     } finally {

@@ -15,9 +15,8 @@ const SERVICE_LABEL: Record<string, string> = {
 
 export default async function AssetDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await getSessionUser();
-  if (!user) redirect("/login");
-
   const { id } = await params;
+  if (!user) redirect(`/login?next=/assets/${id}`);
   const asset = await prisma.asset.findUnique({
     where: { id },
     include: {
