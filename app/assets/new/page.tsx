@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ImageUploader from "@/app/_components/ImageUploader";
+import PriceInput from "@/app/_components/PriceInput";
 
 const SERVICE_OPTIONS = [
   { value: "AS_AVAILABLE",           label: "A/S 가능" },
@@ -108,7 +109,7 @@ export default function AssetNewPage() {
           </div>
           <FormField label="지역 *" name="locationRegion" required placeholder="예: 경기도 성남시" />
           <div className="grid grid-cols-2 gap-4">
-            <FormField label="희망가 (원)" name="askingPrice" type="number" min="0" max="99900000000" placeholder="예: 8500000" />
+            <PriceInput name="askingPrice" label="희망가 (원)" placeholder="예: 8,500,000" max={99900000000} />
             <div className="flex items-end pb-1">
               <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
                 <input name="priceNegotiable" type="checkbox" className="rounded border-slate-300 text-orange-500" />
@@ -157,7 +158,7 @@ export default function AssetNewPage() {
               className="w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent disabled:bg-slate-50 disabled:text-slate-300" />
           </div>
           <FormField label="구매처" name="purchasedFrom" placeholder="예: 현대중장비" />
-          <FormField label="구매금액 (원)" name="purchasePrice" type="number" min="0" placeholder="예: 15000000" />
+          <PriceInput name="purchasePrice" label="구매금액 (원)" placeholder="예: 15,000,000" />
           <p className="text-xs text-slate-400">※ 구매금액은 본인과 운영자만 확인할 수 있습니다.</p>
         </Section>
 

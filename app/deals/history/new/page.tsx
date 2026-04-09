@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import PriceInput from "@/app/_components/PriceInput";
 
 const SERVICE_OPTIONS = [
   { value: "AS_AVAILABLE",           label: "A/S 가능" },
@@ -101,7 +102,7 @@ export default function HistoricalDealNewPage() {
           <Field label="딜명 *" name="dealTitle" required placeholder="예: 지게차 매각 — (주)대한물류" />
           <div className="grid grid-cols-2 gap-4">
             <Field label="거래 완료일" name="closedAt" type="date" />
-            <Field label="최종 거래금액 (원)" name="finalValue" type="number" min="0" placeholder="예: 8500000" />
+            <PriceInput name="finalValue" label="최종 거래금액 (원)" placeholder="예: 8,500,000" />
           </div>
           <Field label="메모" name="notes" placeholder="거래 관련 내부 메모" />
         </Section>
@@ -145,7 +146,7 @@ export default function HistoricalDealNewPage() {
                 <option value="D">D — 부품용</option>
               </select>
             </div>
-            <Field label="희망가 (원)" name="askingPrice" type="number" min="0" placeholder="예: 8500000" />
+            <PriceInput name="askingPrice" label="희망가 (원)" placeholder="예: 8,500,000" max={99900000000} />
           </div>
           <Field label="지역 *" name="locationRegion" required placeholder="예: 경기도 성남시" />
           <Field label="상세 주소" name="locationDetail" placeholder="예: 성남시 분당구" />
@@ -191,7 +192,7 @@ export default function HistoricalDealNewPage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <Field label="구매처" name="purchasedFrom" placeholder="예: 현대중장비" />
-            <Field label="구매금액 (원)" name="purchasePrice" type="number" min="0" placeholder="예: 15000000" />
+            <PriceInput name="purchasePrice" label="구매금액 (원)" placeholder="예: 15,000,000" />
           </div>
         </Section>
 

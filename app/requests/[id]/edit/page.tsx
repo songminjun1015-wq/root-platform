@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
+import PriceInput from "@/app/_components/PriceInput";
 
 const URGENCY = [
   { value: "LOW", label: "낮음" },
@@ -130,16 +131,8 @@ export default function RequestEditPage() {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">최소 예산 (원)</label>
-            <input name="budgetMin" type="number" min="0" value={form.budgetMin} onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">최대 예산 (원)</label>
-            <input name="budgetMax" type="number" min="0" value={form.budgetMax} onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
-          </div>
+          <PriceInput name="budgetMin" label="최소 예산 (원)" value={form.budgetMin} onChange={(v) => setForm((p) => p ? { ...p, budgetMin: v } : p)} />
+          <PriceInput name="budgetMax" label="최대 예산 (원)" value={form.budgetMax} onChange={(v) => setForm((p) => p ? { ...p, budgetMax: v } : p)} />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">설명</label>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import PriceInput from "@/app/_components/PriceInput";
 
 interface AssetOption { id: string; assetTitle: string; }
 interface RequestOption { id: string; requestTitle: string; }
@@ -97,11 +98,7 @@ export default function DealNewPage() {
 
         <p className="text-xs text-gray-400">* 자산 또는 요청 중 최소 하나는 선택해야 합니다.</p>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">예상금액 (원)</label>
-          <input name="expectedValue" type="number" min="0" placeholder="예: 8500000"
-            className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
-        </div>
+        <PriceInput name="expectedValue" label="예상금액 (원)" placeholder="예: 8,500,000" />
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">운영 메모</label>

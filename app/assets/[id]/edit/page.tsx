@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import ImageUploader from "@/app/_components/ImageUploader";
+import PriceInput from "@/app/_components/PriceInput";
 
 const SERVICE_OPTIONS = [
   { value: "AS_AVAILABLE",           label: "A/S 가능" },
@@ -175,9 +176,7 @@ export default function AssetEditPage() {
             <input name="locationRegion" value={form.locationRegion} onChange={handleChange} required className={input} />
           </Field>
           <div className="grid grid-cols-2 gap-4">
-            <Field label="희망가 (원)">
-              <input name="askingPrice" type="number" min="0" max="99900000000" value={form.askingPrice} onChange={handleChange} className={input} />
-            </Field>
+            <PriceInput name="askingPrice" label="희망가 (원)" value={form.askingPrice} onChange={(v) => setForm((p) => p ? { ...p, askingPrice: v } : p)} max={99900000000} className={input} />
             <div className="flex items-end pb-1">
               <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
                 <input name="priceNegotiable" type="checkbox" checked={form.priceNegotiable} onChange={handleChange}

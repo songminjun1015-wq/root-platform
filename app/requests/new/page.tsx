@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import PriceInput from "@/app/_components/PriceInput";
 
 const URGENCY = [
   { value: "LOW", label: "낮음" },
@@ -95,16 +96,8 @@ export default function RequestNewPage() {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">최소 예산 (원)</label>
-            <input name="budgetMin" type="number" min="0" placeholder="0"
-              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">최대 예산 (원)</label>
-            <input name="budgetMax" type="number" min="0" placeholder="예: 10000000"
-              className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent" />
-          </div>
+          <PriceInput name="budgetMin" label="최소 예산 (원)" placeholder="0" />
+          <PriceInput name="budgetMax" label="최대 예산 (원)" placeholder="예: 10,000,000" />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1.5">설명</label>
