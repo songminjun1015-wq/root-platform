@@ -70,17 +70,16 @@ export default async function DashboardPage() {
         {statCards.map((card) => (
           <div
             key={card.label}
-            className="rounded-2xl p-5 hover:shadow-md transition-shadow"
-            style={{ backgroundColor: "#0A1628" }}
+            className="bg-white border border-slate-200 rounded-2xl p-5 hover:shadow-sm hover:border-orange-200 transition-all"
           >
-            <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg mb-4 bg-orange-500/15">
-              <svg className="w-[14px] h-[14px] text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg mb-4 bg-orange-50">
+              <svg className="w-[14px] h-[14px] text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={card.icon} />
               </svg>
-              <span className="text-xs font-semibold text-orange-400">{card.label}</span>
+              <span className="text-xs font-semibold text-orange-500">{card.label}</span>
             </div>
-            <p className="text-3xl font-black text-white">
-              {card.value}<span className="text-lg font-semibold text-white/30 ml-1">건</span>
+            <p className="text-3xl font-black text-slate-900">
+              {card.value}<span className="text-lg font-semibold text-slate-300 ml-1">건</span>
             </p>
           </div>
         ))}

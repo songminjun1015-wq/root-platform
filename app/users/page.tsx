@@ -68,11 +68,11 @@ export default function UsersPage() {
         {[
           { label: "전체 가입", value: users.length, color: "text-slate-900" },
           { label: "회원",     value: userCount,     color: "text-slate-900" },
-          { label: "운영자",   value: adminCount,    color: "text-orange-500" },
+          { label: "운영자",   value: adminCount,    color: "text-orange-500 font-black" },
         ].map((s) => (
-          <div key={s.label} className="rounded-2xl p-5" style={{ backgroundColor: "#0A1628" }}>
-            <p className="text-xs text-white/40 mb-1">{s.label}</p>
-            <p className={`text-3xl font-black ${s.color}`}>{s.value}<span className="text-lg font-semibold text-white/30 ml-1">명</span></p>
+          <div key={s.label} className="bg-white border border-slate-200 rounded-2xl p-5 hover:shadow-sm hover:border-orange-200 transition-all">
+            <p className="text-xs text-slate-400 mb-1">{s.label}</p>
+            <p className={`text-3xl font-black ${s.color}`}>{s.value}<span className="text-lg font-semibold text-slate-300 ml-1">명</span></p>
           </div>
         ))}
       </div>
