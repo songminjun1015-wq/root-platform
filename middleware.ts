@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
-const PUBLIC_PAGES = ["/", "/login", "/register", "/forgot-password", "/reset-password"];
+const PUBLIC_PAGES = ["/", "/login", "/register", "/forgot-password", "/reset-password", "/terms", "/privacy"];
 
 const AUTH_PAGES = ["/login", "/register", "/forgot-password", "/reset-password"];
 

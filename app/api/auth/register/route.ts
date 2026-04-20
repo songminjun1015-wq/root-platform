@@ -4,6 +4,10 @@ import { prisma } from "@/lib/prisma";
 import { signToken } from "@/lib/jwt";
 import { UserRole } from "@prisma/client";
 import { validatePassword } from "@/lib/password";
+import { checkRateLimit } from "@/lib/rate-limit";
+
+// 1시간 내 5회 제한
+const REGISTER_RATE_LIMIT = { maxRequests: 5, windowMs: 60 * 60 * 1000 };
 
 interface RegisterBody {
   name: string;
@@ -18,6 +22,15 @@ const MIN_PASSWORD_LENGTH = 8;
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+    const rl = checkRateLimit(`register:${ip}`, REGISTER_RATE_LIMIT);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: "회원가입 시도가 너무 많습니다. 잠시 후 다시 시도해주세요." },
+        { status: 429, headers: { "Retry-After": String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+      );
+    }
+
     const body: RegisterBody = await req.json();
     const { name, email, password, companyName, role } = body;
 

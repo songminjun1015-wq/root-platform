@@ -26,7 +26,13 @@ const ROLE_LABEL: Record<string, string> = {
   USER: "회원",
 };
 
-export default function Sidebar({ session }: { session: JwtPayload | null }) {
+export default function Sidebar({
+  session,
+  onClose,
+}: {
+  session: JwtPayload | null;
+  onClose?: () => void;
+}) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -38,14 +44,30 @@ export default function Sidebar({ session }: { session: JwtPayload | null }) {
     router.refresh();
   }
 
+  function handleNavClick() {
+    onClose?.();
+  }
+
   return (
     <aside className="w-60 flex-shrink-0 flex flex-col h-screen" style={{ backgroundColor: "#0A1628", borderRight: "1px solid rgba(255,255,255,0.08)" }}>
       {/* 로고 */}
-      <div className="px-6 py-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-        <Link href="/" className="block">
+      <div className="px-6 py-5 flex items-center justify-between" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+        <Link href="/" className="block" onClick={handleNavClick}>
           <span className="text-white font-black text-xl tracking-tighter">ROOT</span>
           <p className="text-white/30 text-xs mt-0.5 font-medium">자산 운영 플랫폼</p>
         </Link>
+        {/* 모바일 닫기 버튼 */}
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="lg:hidden p-1.5 rounded-lg hover:bg-white/10 transition-colors"
+            aria-label="메뉴 닫기"
+          >
+            <svg className="w-5 h-5 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
       </div>
 
       {/* 네비게이션 */}
@@ -56,6 +78,7 @@ export default function Sidebar({ session }: { session: JwtPayload | null }) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={handleNavClick}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                 isActive
                   ? "bg-orange-500/15 text-orange-400"
@@ -83,6 +106,7 @@ export default function Sidebar({ session }: { session: JwtPayload | null }) {
         )}
         <Link
           href="/settings"
+          onClick={handleNavClick}
           className="block w-full text-sm text-white/25 hover:text-white/60 transition-colors py-1 font-medium mb-1"
         >
           설정 (비밀번호 변경)

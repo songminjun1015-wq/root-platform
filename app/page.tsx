@@ -390,6 +390,10 @@ export default function LandingPage() {
       <footer className="bg-[#0A1628] border-t border-white/10 py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-xl font-black text-white tracking-tighter">ROOT</span>
+          <div className="flex items-center gap-4">
+            <Link href="/terms" className="text-xs text-white/30 hover:text-white/60 transition-colors">이용약관</Link>
+            <Link href="/privacy" className="text-xs text-white/30 hover:text-white/60 transition-colors">개인정보처리방침</Link>
+          </div>
           <p className="text-xs text-white/20">Copyright © ROOT. All rights reserved.</p>
         </div>
       </footer>

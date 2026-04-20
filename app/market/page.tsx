@@ -1,7 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/session";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import MatchingRequestButton from "./MatchingRequestButton";
+import MarketFilters from "./MarketFilters";
 
 const CONDITION_LABEL: Record<string, string> = {
   A: "최상",
@@ -10,12 +12,47 @@ const CONDITION_LABEL: Record<string, string> = {
   D: "부품용",
 };
 
-export default async function MarketPage() {
+export default async function MarketPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; category?: string; region?: string; grade?: string; priceMax?: string }>;
+}) {
   const user = await getSessionUser();
   if (!user) redirect("/login");
 
-  const assets = await prisma.asset.findMany({
+  const { q, category, region, grade, priceMax } = await searchParams;
+
+  // 필터용 옵션 목록 (전체 ACTIVE 기준)
+  const allAssets = await prisma.asset.findMany({
     where: { status: "ACTIVE" },
+    select: { category: true, locationRegion: true },
+  });
+
+  const categories = [...new Set(allAssets.map((a) => a.category))].sort();
+  // 지역은 시/도 단위로 그룹핑
+  const regions = [...new Set(
+    allAssets.map((a) => {
+      const parts = a.locationRegion.split(" ");
+      return parts[0]; // "경기도", "서울", "부산" 등
+    })
+  )].sort();
+
+  // 필터 적용해서 자산 조회
+  const assets = await prisma.asset.findMany({
+    where: {
+      status: "ACTIVE",
+      ...(category && { category }),
+      ...(grade && { conditionGrade: grade }),
+      ...(priceMax && { askingPrice: { lte: Number(priceMax) } }),
+      ...(region && { locationRegion: { startsWith: region } }),
+      ...(q && {
+        OR: [
+          { assetTitle: { contains: q, mode: "insensitive" } },
+          { manufacturer: { contains: q, mode: "insensitive" } },
+          { modelName: { contains: q, mode: "insensitive" } },
+        ],
+      }),
+    },
     orderBy: { createdAt: "desc" },
     select: {
       id: true,
@@ -39,14 +76,25 @@ export default async function MarketPage() {
 
   return (
     <div className="p-6 sm:p-8 max-w-7xl mx-auto">
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-2xl font-black text-slate-900 tracking-tight">매물 현황</h1>
-        <p className="text-slate-400 text-sm mt-1 font-medium">현재 거래 가능한 장비 {assets.length}건</p>
+        <p className="text-slate-400 text-sm mt-1 font-medium">현재 거래 가능한 장비</p>
       </div>
+
+      <Suspense>
+        <MarketFilters
+          categories={categories}
+          regions={regions}
+          totalCount={assets.length}
+        />
+      </Suspense>
 
       {assets.length === 0 ? (
         <div className="py-24 text-center">
-          <p className="text-slate-400 text-sm">현재 등록된 매물이 없습니다.</p>
+          <p className="text-slate-400 text-sm">검색 결과가 없습니다.</p>
+          {(q || category || region || grade || priceMax) && (
+            <p className="text-slate-300 text-xs mt-1">필터를 변경해보세요.</p>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

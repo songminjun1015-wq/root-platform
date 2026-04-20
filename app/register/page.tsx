@@ -115,6 +115,12 @@ export default function RegisterPage() {
             이미 계정이 있으신가요?{" "}
             <Link href="/login" className="text-orange-500 font-semibold hover:underline">로그인</Link>
           </p>
+          <p className="text-center text-xs text-slate-300 mt-4 leading-relaxed">
+            가입 시{" "}
+            <Link href="/terms" className="underline hover:text-slate-500 transition-colors">이용약관</Link> 및{" "}
+            <Link href="/privacy" className="underline hover:text-slate-500 transition-colors">개인정보처리방침</Link>에
+            동의하는 것으로 간주합니다.
+          </p>
         </div>
       </div>
     </div>
