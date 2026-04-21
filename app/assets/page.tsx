@@ -16,15 +16,15 @@ export default async function AssetsPage() {
   });
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+      <div className="flex items-center justify-between gap-3 mb-6 sm:mb-8">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
             {user.role === "ADMIN" ? "자산 관리" : "내 자산"}
           </h1>
           <p className="text-slate-400 text-sm mt-1 font-medium">{assets.length}개의 자산</p>
         </div>
-        <Link href="/assets/new" className="bg-orange-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-400 transition-colors">
+        <Link href="/assets/new" className="shrink-0 bg-orange-500 text-white px-3 sm:px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-400 transition-colors whitespace-nowrap">
           + 자산 등록
         </Link>
       </div>
@@ -43,7 +43,8 @@ export default async function AssetsPage() {
             </Link>
           </div>
         ) : (
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-[720px]">
             <thead className="border-b border-slate-100">
               <tr>
                 {["자산명", "카테고리", "수량", "상태등급", "지역", "희망가", "상태", ""].map((h) => (
@@ -94,6 +95,7 @@ export default async function AssetsPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

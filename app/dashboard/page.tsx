@@ -68,9 +68,9 @@ export default async function DashboardPage() {
     const hasTodo = pendingAssets > 0 || pendingRequests > 0 || newDeals > 0;
 
     return (
-      <div className="p-6 sm:p-8 max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+      <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
             안녕하세요, <span className="text-orange-500">{user.name}</span>님
           </h1>
           <p className="text-slate-400 text-sm mt-1 font-medium">운영자 대시보드</p>
@@ -94,9 +94,9 @@ export default async function DashboardPage() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {todoItems.filter((item) => item.count > 0).map((item) => (
                 <Link key={item.label} href={item.href}
-                  className={`relative border rounded-2xl p-4 transition-all hover:shadow-sm ${item.color}`}>
+                  className={`relative border rounded-2xl p-3 sm:p-4 transition-all hover:shadow-sm ${item.color}`}>
                   <span className={`absolute top-3 right-3 w-2 h-2 rounded-full ${item.dot}`} />
-                  <p className="text-2xl font-black mb-1">{item.count}</p>
+                  <p className="text-xl sm:text-2xl font-black mb-1">{item.count}</p>
                   <p className="text-xs font-semibold">{item.label}</p>
                 </Link>
               ))}
@@ -110,8 +110,8 @@ export default async function DashboardPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {totalCards.map((card) => (
               <Link key={card.label} href={card.href}
-                className="bg-white border border-slate-200 rounded-2xl p-4 hover:border-orange-200 hover:shadow-sm transition-all">
-                <p className="text-3xl font-black text-slate-900">
+                className="bg-white border border-slate-200 rounded-2xl p-3 sm:p-4 hover:border-orange-200 hover:shadow-sm transition-all">
+                <p className="text-2xl sm:text-3xl font-black text-slate-900">
                   {card.value}<span className="text-base font-semibold text-slate-300 ml-1">건</span>
                 </p>
                 <p className="text-xs font-semibold text-slate-400 mt-1">{card.label}</p>
@@ -183,26 +183,26 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <div className="p-6 sm:p-8 max-w-7xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
           안녕하세요, <span className="text-orange-500">{user.name}</span>님
         </h1>
         <p className="text-slate-400 text-sm mt-1 font-medium">{user.companyName}</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 mb-8">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-4 mb-8">
         {statCards.map((card) => (
           <Link key={card.label} href={card.href}
-            className="bg-white border border-slate-200 rounded-2xl p-5 hover:shadow-sm hover:border-orange-200 transition-all">
-            <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg mb-4 bg-orange-50">
+            className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 hover:shadow-sm hover:border-orange-200 transition-all">
+            <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg mb-3 sm:mb-4 bg-orange-50">
               <svg className="w-[14px] h-[14px] text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={card.icon} />
               </svg>
               <span className="text-xs font-semibold text-orange-500">{card.label}</span>
             </div>
-            <p className="text-3xl font-black text-slate-900">
-              {card.value}<span className="text-lg font-semibold text-slate-300 ml-1">건</span>
+            <p className="text-2xl sm:text-3xl font-black text-slate-900">
+              {card.value}<span className="text-base sm:text-lg font-semibold text-slate-300 ml-1">건</span>
             </p>
           </Link>
         ))}

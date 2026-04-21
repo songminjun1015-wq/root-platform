@@ -15,13 +15,13 @@ export default async function RequestsPage() {
   });
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">구매 요청</h1>
+    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+      <div className="flex items-center justify-between gap-3 mb-6 sm:mb-8">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">구매 요청</h1>
           <p className="text-slate-400 text-sm mt-1 font-medium">{requests.length}개의 요청</p>
         </div>
-        <Link href="/requests/new" className="bg-orange-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-400 transition-colors">
+        <Link href="/requests/new" className="shrink-0 bg-orange-500 text-white px-3 sm:px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-400 transition-colors whitespace-nowrap">
           + 요청 등록
         </Link>
       </div>

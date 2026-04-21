@@ -29,17 +29,17 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
   }
 
   return (
-    <div className="p-8 max-w-5xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto">
       <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
         <Link href="/deals" className="hover:text-gray-600">딜 관리</Link>
         <span>/</span>
         <span className="text-gray-600">{deal.dealTitle}</span>
       </div>
 
-      <div className="flex items-start justify-between mb-8">
-        <div>
-          <div className="flex items-center gap-3 mb-1">
-            <h1 className="text-2xl font-bold text-gray-900">{deal.dealTitle}</h1>
+      <div className="flex items-start justify-between mb-6 sm:mb-8 gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 sm:gap-3 mb-1 flex-wrap">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 break-keep">{deal.dealTitle}</h1>
             <StatusBadge status={deal.status} />
             {deal.isHistorical && (
               <span className="text-xs font-bold bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full">수기 입력</span>
@@ -60,7 +60,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
         {/* 딜 정보 */}
         <section className="bg-white border border-gray-200 rounded-xl p-6">
           <h2 className="text-sm font-semibold text-gray-700 mb-4">딜 정보</h2>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 sm:gap-x-6 gap-y-4">
             <div>
               <p className="text-xs text-gray-400 mb-0.5">상태</p>
               <StatusBadge status={deal.status} />
@@ -100,7 +100,7 @@ export default async function DealDetailPage({ params }: { params: Promise<{ id:
         {deal.isHistorical && (deal.sellerName || deal.buyerName) && (
           <section className="bg-white border border-gray-200 rounded-xl p-6">
             <h2 className="text-sm font-semibold text-gray-700 mb-4">거래 당사자</h2>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div>
                 <p className="text-xs text-gray-400 mb-1.5">판매자</p>
                 {deal.sellerName ? (

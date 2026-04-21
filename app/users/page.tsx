@@ -57,22 +57,22 @@ export default function UsersPage() {
   const userCount  = users.filter((u) => u.role === "USER").length;
 
   return (
-    <div className="p-6 sm:p-8 max-w-6xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto">
       <div className="mb-8">
         <h1 className="text-2xl font-black text-slate-900 tracking-tight">가입 현황</h1>
         <p className="text-slate-400 text-sm mt-1">전체 가입 유저를 관리합니다.</p>
       </div>
 
       {/* 요약 카드 */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-8">
         {[
           { label: "전체 가입", value: users.length, color: "text-slate-900" },
           { label: "회원",     value: userCount,     color: "text-slate-900" },
           { label: "운영자",   value: adminCount,    color: "text-orange-500 font-black" },
         ].map((s) => (
-          <div key={s.label} className="bg-white border border-slate-200 rounded-2xl p-5 hover:shadow-sm hover:border-orange-200 transition-all">
+          <div key={s.label} className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 hover:shadow-sm hover:border-orange-200 transition-all">
             <p className="text-xs text-slate-400 mb-1">{s.label}</p>
-            <p className={`text-3xl font-black ${s.color}`}>{s.value}<span className="text-lg font-semibold text-slate-300 ml-1">명</span></p>
+            <p className={`text-2xl sm:text-3xl font-black ${s.color}`}>{s.value}<span className="text-base sm:text-lg font-semibold text-slate-300 ml-1">명</span></p>
           </div>
         ))}
       </div>
@@ -95,7 +95,8 @@ export default function UsersPage() {
         ) : filtered.length === 0 ? (
           <div className="p-8 text-center text-slate-400 text-sm">가입된 유저가 없습니다.</div>
         ) : (
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-[680px]">
             <thead>
               <tr className="border-b border-slate-100 bg-slate-50">
                 <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500">이름 / 회사</th>
@@ -136,6 +137,7 @@ export default function UsersPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

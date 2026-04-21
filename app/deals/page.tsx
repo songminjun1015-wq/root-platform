@@ -20,18 +20,18 @@ export default async function DealsPage() {
   });
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">딜 관리</h1>
+    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+      <div className="flex items-start sm:items-center justify-between gap-3 mb-6 sm:mb-8 flex-wrap">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">딜 관리</h1>
           <p className="text-slate-400 text-sm mt-1 font-medium">{deals.length}개의 딜</p>
         </div>
         {user.role === "ADMIN" && (
-          <div className="flex gap-2">
-            <Link href="/deals/history/new" className="border border-slate-200 bg-white text-slate-700 px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-50 transition-colors">
+          <div className="flex gap-2 flex-wrap">
+            <Link href="/deals/history/new" className="border border-slate-200 bg-white text-slate-700 px-3 sm:px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-slate-50 transition-colors whitespace-nowrap">
               + 과거 거래 입력
             </Link>
-            <Link href="/deals/new" className="bg-orange-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-400 transition-colors">
+            <Link href="/deals/new" className="bg-orange-500 text-white px-3 sm:px-4 py-2.5 rounded-xl text-sm font-semibold hover:bg-orange-400 transition-colors whitespace-nowrap">
               + 딜 생성
             </Link>
           </div>
@@ -49,7 +49,8 @@ export default async function DealsPage() {
             <p className="text-slate-400 text-sm font-medium">진행 중인 딜이 없습니다.</p>
           </div>
         ) : (
-          <table className="w-full text-sm">
+          <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-[720px]">
             <thead className="border-b border-slate-100">
               <tr>
                 {["딜명", "상태", "연결 자산", "연결 요청", "예상금액", "최종금액", ""].map((h) => (
@@ -91,6 +92,7 @@ export default async function DealsPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </div>

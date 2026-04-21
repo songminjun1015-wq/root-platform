@@ -89,7 +89,8 @@ export default function RequestsTable({
         <p className="text-sm text-red-600">{error}</p>
       </div>
     )}
-    <table className="w-full text-sm">
+    <div className="overflow-x-auto">
+    <table className="w-full text-sm min-w-[820px]">
       <thead className="border-b border-slate-100">
         <tr>
           {["요청명", "카테고리", "수량", "긴급도", "지역", "예산", "상태", ""].map((h) => (
@@ -170,6 +171,7 @@ export default function RequestsTable({
         ))}
       </tbody>
     </table>
+    </div>
     </>
   );
 }

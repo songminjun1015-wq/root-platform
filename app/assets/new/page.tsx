@@ -75,7 +75,7 @@ export default function AssetNewPage() {
   }
 
   return (
-    <div className="p-6 sm:p-8 max-w-2xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto">
       <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
         <Link href="/assets" className="hover:text-gray-600">자산 관리</Link>
         <span>/</span>
@@ -88,12 +88,12 @@ export default function AssetNewPage() {
         {/* ── 기본 정보 ── */}
         <Section title="기본 정보">
           <FormField label="자산명 *" name="assetTitle" required placeholder="예: 지게차 2.5t Toyota 8FD25" />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormField label="카테고리 *" name="category" required placeholder="예: 물류장비" />
             <FormField label="제조사" name="manufacturer" placeholder="예: Toyota" />
           </div>
           <FormField label="모델명" name="modelName" placeholder="예: 8FD25" />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormField label="수량 *" name="quantity" type="number" min="1" max="9999" required />
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">상태등급 *</label>
@@ -108,7 +108,7 @@ export default function AssetNewPage() {
             </div>
           </div>
           <FormField label="지역 *" name="locationRegion" required placeholder="예: 경기도 성남시" />
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <PriceInput name="askingPrice" label="희망가 (원)" placeholder="예: 8,500,000" max={99900000000} />
             <div className="flex items-end pb-1">
               <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
@@ -121,7 +121,7 @@ export default function AssetNewPage() {
 
         {/* ── 장비 이력 ── */}
         <Section title="장비 이력">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">제조연도</label>
               <select name="manufacturedYear"
