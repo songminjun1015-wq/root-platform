@@ -1,9 +1,13 @@
 import { ImageResponse } from "next/og";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
 export default function Icon() {
+  const fontData = readFileSync(join(process.cwd(), "public/fonts/Pretendard-Black.otf"));
+
   return new ImageResponse(
     (
       <div
@@ -24,13 +28,12 @@ export default function Icon() {
             fontSize: 13,
             fontWeight: 900,
             letterSpacing: "-1px",
-            fontFamily: "sans-serif",
+            fontFamily: "Pretendard",
             lineHeight: 1,
           }}
         >
           R
         </span>
-        {/* 오렌지 닷 */}
         <div
           style={{
             position: "absolute",
@@ -44,6 +47,9 @@ export default function Icon() {
         />
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      fonts: [{ name: "Pretendard", data: fontData, weight: 900, style: "normal" }],
+    }
   );
 }

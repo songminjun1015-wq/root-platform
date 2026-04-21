@@ -1,9 +1,13 @@
 import { ImageResponse } from "next/og";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
 export default function AppleIcon() {
+  const fontData = readFileSync(join(process.cwd(), "public/fonts/Pretendard-Black.otf"));
+
   return new ImageResponse(
     (
       <div
@@ -24,7 +28,7 @@ export default function AppleIcon() {
             fontSize: 72,
             fontWeight: 900,
             letterSpacing: "-4px",
-            fontFamily: "sans-serif",
+            fontFamily: "Pretendard",
             lineHeight: 1,
           }}
         >
@@ -43,6 +47,9 @@ export default function AppleIcon() {
         />
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      fonts: [{ name: "Pretendard", data: fontData, weight: 900, style: "normal" }],
+    }
   );
 }

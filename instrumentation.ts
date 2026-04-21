@@ -1,6 +1,15 @@
+import * as Sentry from "@sentry/nextjs";
+
 export async function register() {
   if (process.env.NEXT_RUNTIME === "nodejs") {
     const { checkEnvVars } = await import("@/lib/env-check");
     checkEnvVars();
+    await import("./sentry.server.config");
+  }
+
+  if (process.env.NEXT_RUNTIME === "edge") {
+    await import("./sentry.edge.config");
   }
 }
+
+export const onRequestError = Sentry.captureRequestError;

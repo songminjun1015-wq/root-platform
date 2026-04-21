@@ -4,6 +4,11 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
+  if (process.env.NODE_ENV === "production" && !process.env.ALLOW_PROD_SEED) {
+    console.error("❌ 시드 스크립트는 운영 환경에서 실행할 수 없습니다. (강제 실행 시 ALLOW_PROD_SEED=1)");
+    process.exit(1);
+  }
+
   console.log("🌱 시드 데이터 삽입 시작...");
 
   // ── 유저 생성 ──

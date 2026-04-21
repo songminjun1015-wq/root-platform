@@ -22,7 +22,7 @@ export async function sendPasswordResetEmail(to: string, token: string) {
     to,
     "[ROOT] 비밀번호 재설정 안내",
     `
-    <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
+    <div style="font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',Roboto,sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
       <h2 style="color:#0A1628;font-size:22px;font-weight:900;margin:0 0 8px;">비밀번호 재설정</h2>
       <p style="color:#64748b;font-size:14px;margin:0 0 24px;">
         아래 버튼을 클릭하면 비밀번호를 재설정할 수 있습니다.<br/>
@@ -50,7 +50,7 @@ export async function sendAssetApprovedEmail(to: string, assetTitle: string, ass
     to,
     `[ROOT] 자산 등록이 승인되었습니다 — ${assetTitle}`,
     `
-    <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
+    <div style="font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',Roboto,sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
       <h2 style="color:#0A1628;font-size:22px;font-weight:900;margin:0 0 8px;">자산 등록 승인</h2>
       <p style="color:#64748b;font-size:14px;margin:0 0 8px;">
         등록하신 자산이 검토를 완료하고 매칭 가능 상태로 변경되었습니다.
@@ -89,7 +89,7 @@ export async function sendDealStatusEmail(
     to,
     `[ROOT] 딜 상태가 변경되었습니다 — ${dealTitle}`,
     `
-    <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
+    <div style="font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',Roboto,sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
       <h2 style="color:#0A1628;font-size:22px;font-weight:900;margin:0 0 8px;">딜 상태 변경</h2>
       <p style="color:#64748b;font-size:14px;margin:0 0 8px;">진행 중인 딜의 상태가 업데이트되었습니다.</p>
       <p style="color:#0A1628;font-size:15px;font-weight:700;margin:0 0 4px;">${dealTitle}</p>
@@ -125,7 +125,7 @@ export async function sendMatchingRequestEmail(
     adminEmail,
     `[ROOT 어드민] 매칭 요청 — ${assetTitle}`,
     `
-    <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
+    <div style="font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',Roboto,sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
       <h2 style="color:#0A1628;font-size:22px;font-weight:900;margin:0 0 8px;">매칭 요청이 들어왔습니다</h2>
       <p style="color:#64748b;font-size:14px;margin:0 0 16px;">아래 회원이 자산에 관심을 표시했습니다.</p>
       <table style="width:100%;border-collapse:collapse;margin:0 0 24px;">
@@ -161,7 +161,7 @@ export async function sendNewAssetNotifyAdmin(
     adminEmail,
     `[ROOT 어드민] 새 자산 등록 — ${assetTitle}`,
     `
-    <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
+    <div style="font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',Roboto,sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
       <h2 style="color:#0A1628;font-size:22px;font-weight:900;margin:0 0 8px;">새 자산 등록됨</h2>
       <p style="color:#64748b;font-size:14px;margin:0 0 16px;">검토가 필요한 자산이 등록되었습니다.</p>
       <table style="width:100%;border-collapse:collapse;margin:0 0 24px;">

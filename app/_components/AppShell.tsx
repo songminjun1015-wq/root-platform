@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Sidebar from "./Sidebar";
+import BetaBanner from "./BetaBanner";
 import type { JwtPayload } from "@/lib/jwt";
 
 const PUBLIC_PATHS = ["/", "/login", "/register", "/forgot-password", "/reset-password", "/terms", "/privacy"];
@@ -18,7 +19,14 @@ export default function AppShell({
   const isPublic = PUBLIC_PATHS.includes(pathname);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  if (isPublic) return <>{children}</>;
+  if (isPublic) {
+    return (
+      <>
+        <BetaBanner />
+        {children}
+      </>
+    );
+  }
 
   return (
     <div className="flex h-screen overflow-hidden bg-slate-50">
@@ -41,6 +49,7 @@ export default function AppShell({
 
       {/* 메인 */}
       <main className="flex-1 overflow-y-auto">
+        <BetaBanner />
         {/* 모바일 헤더 */}
         <div className="sticky top-0 z-30 flex items-center gap-3 px-4 py-3 bg-white border-b border-slate-200 lg:hidden">
           <button
