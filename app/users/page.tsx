@@ -19,6 +19,8 @@ export default function UsersPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [updating, setUpdating] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
+  const [meId, setMeId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/users")
@@ -28,6 +30,10 @@ export default function UsersPage() {
       })
       .then((json) => { if (json) setUsers(json.users); })
       .finally(() => setLoading(false));
+
+    fetch("/api/auth/me")
+      .then((r) => r.ok ? r.json() : null)
+      .then((json) => { if (json?.user?.id) setMeId(json.user.id); });
   }, [router]);
 
   async function toggleRole(user: User) {
@@ -46,6 +52,30 @@ export default function UsersPage() {
       }
     } finally {
       setUpdating(null);
+    }
+  }
+
+  async function deleteUser(user: User) {
+    const detail = `${user.name} (${user.email})`;
+    const totalRecords = user._count.assets + user._count.requests;
+    const recordWarning =
+      totalRecords > 0
+        ? `\n\n이 회원이 등록한 자산 ${user._count.assets}건, 요청 ${user._count.requests}건도 함께 삭제됩니다.`
+        : "";
+    if (!confirm(`${detail} 회원을 삭제하시겠습니까?${recordWarning}\n\n이 작업은 되돌릴 수 없습니다.`)) return;
+    if (!confirm(`정말 ${detail} 계정을 영구 삭제할까요?`)) return;
+
+    setDeleting(user.id);
+    try {
+      const res = await fetch(`/api/users/${user.id}`, { method: "DELETE" });
+      if (res.ok) {
+        setUsers((prev) => prev.filter((u) => u.id !== user.id));
+      } else {
+        const json = await res.json().catch(() => null);
+        alert(json?.error ?? "삭제에 실패했습니다.");
+      }
+    } finally {
+      setDeleting(null);
     }
   }
 
@@ -96,7 +126,7 @@ export default function UsersPage() {
           <div className="p-8 text-center text-slate-400 text-sm">가입된 유저가 없습니다.</div>
         ) : (
           <div className="overflow-x-auto">
-          <table className="w-full text-sm min-w-[680px]">
+          <table className="w-full text-sm min-w-[760px]">
             <thead>
               <tr className="border-b border-slate-100 bg-slate-50">
                 <th className="text-left px-5 py-3 text-xs font-semibold text-slate-500">이름 / 회사</th>
@@ -105,6 +135,7 @@ export default function UsersPage() {
                 <th className="text-center px-4 py-3 text-xs font-semibold text-slate-500">요청</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">가입일</th>
                 <th className="text-center px-4 py-3 text-xs font-semibold text-slate-500">역할</th>
+                <th className="text-center px-4 py-3 text-xs font-semibold text-slate-500">관리</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -132,6 +163,19 @@ export default function UsersPage() {
                     >
                       {updating === user.id ? "..." : user.role === "ADMIN" ? "운영자" : "회원"}
                     </button>
+                  </td>
+                  <td className="px-4 py-3.5 text-center">
+                    {user.id === meId ? (
+                      <span className="text-xs text-slate-300">본인</span>
+                    ) : (
+                      <button
+                        onClick={() => deleteUser(user)}
+                        disabled={deleting === user.id}
+                        className="px-3 py-1 rounded-full text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 transition-colors disabled:opacity-50"
+                      >
+                        {deleting === user.id ? "삭제 중..." : "삭제"}
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
